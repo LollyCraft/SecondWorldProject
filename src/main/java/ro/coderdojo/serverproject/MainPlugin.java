@@ -20,8 +20,13 @@ public class MainPlugin extends JavaPlugin {
     public void onEnable() {
                 plugin = this;
                 
-		loadLobby();
-                //Register Event Listeners                
+        try {
+            unzip();
+        } catch (Exception ex) {
+           throw new RuntimeException(ex);
+        }
+                
+		loadLobby();             
                 loadSkyWars();
                 
                 getServer().getPluginManager().registerEvents(new EventsListener(lobby,skywars), this);
@@ -31,6 +36,12 @@ public class MainPlugin extends JavaPlugin {
 		this.getCommand("CoderDojo").setExecutor(new CoderDojoCommand());
                 
                 killAllMobs();
+    }
+    
+     public void unzip() throws Exception {
+        
+            UnZip.unzip(this.getServer());
+        
     }
     
     public void loadLobby(){

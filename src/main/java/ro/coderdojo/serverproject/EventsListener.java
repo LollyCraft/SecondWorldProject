@@ -1,6 +1,7 @@
 package ro.coderdojo.serverproject;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -32,6 +33,7 @@ public final class EventsListener implements Listener {
 	@EventHandler
 	public void onLogin(PlayerJoinEvent event) {
 		Player player = event.getPlayer();
+                player.getInventory().clear();
 		player.sendMessage("Salut " + ChatColor.AQUA + player.getName() + ChatColor.WHITE + "! Felicitări pentru primul mod de Minecraft!");
                 
                 player.teleport(new Location(lobby, -1522.666, 111.00000, 683.227, -91.6f, 2.1f));
@@ -61,10 +63,9 @@ public final class EventsListener implements Listener {
 			Location button1 = new Location(MainPlugin.lobby, -1490, 109.0, 683.0, location.getYaw(), location.getPitch());
 			if (location.equals(button1)) {
                             
-                            player.teleport(new Location(skywars, 3.882, 118.00000, 117.717, 1.7f, 4.8f));
-//				timer();
-//				player.sendMessage("Ai pornit meciul!");
-//				MainPlugin.plugin.getServer().broadcastMessage("Meciul a fost pornit!");
+                            player.teleport(new Location(skywars, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
+                            //player.teleport(new Location(skywars, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map DAVID
+                            
 			}
 		}
 	}
@@ -74,7 +75,7 @@ public final class EventsListener implements Listener {
             
 		Player player = event.getPlayer();
                 event.setRespawnLocation(new Location(lobby, -1522.666, 111.00000, 683.227, -91.6f, 2.1f));
-		//player.setGameMode(GameMode.SURVIVAL);
+		player.setGameMode(GameMode.SURVIVAL);
 		player.getInventory().clear();
                 AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		healthAttribute.setBaseValue(20.00);
