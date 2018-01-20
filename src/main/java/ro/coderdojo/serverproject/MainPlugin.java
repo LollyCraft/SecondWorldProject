@@ -9,7 +9,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class MainPlugin extends JavaPlugin {
 
     public static World lobby;
-    public static World skywars;
+    public static World arena;
     
     public static JavaPlugin plugin;
 
@@ -29,13 +29,20 @@ public class MainPlugin extends JavaPlugin {
 		loadLobby();             
                 loadSkyWars();
                 
-                getServer().getPluginManager().registerEvents(new EventsListener(lobby,skywars), this);
-                MainPlugin.plugin.getServer().getPluginManager().registerEvents(new SkyWarsListener(), this);
-                
-		//Register Command Executors
+                getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
+                getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
+                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,plugin), this);
+//                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
+
+                                //Register Command Executors
 		this.getCommand("CoderDojo").setExecutor(new CoderDojoCommand());
                 
+               
+                        
                 killAllMobs();
+                
+
+                
     }
     
      public void unzip() throws Exception {
@@ -47,21 +54,24 @@ public class MainPlugin extends JavaPlugin {
     public void loadLobby(){
           lobby = Bukkit.getServer().createWorld(new WorldCreator("world_lobby"));
           lobby.setGameRuleValue("doMobSpawning", "false");
+          lobby.setPVP(false);
+          lobby.setStorm(false);
           
     }
     
     public void loadSkyWars(){
-           skywars = Bukkit.getServer().createWorld(new WorldCreator("SkyWars_map"));
-           skywars.setGameRuleValue("doMobSpawning", "false");
+           arena = Bukkit.getServer().createWorld(new WorldCreator("SkyWars_map"));
+           arena.setGameRuleValue("doMobSpawning", "false");
     }
 
     private void killAllMobs() {
         lobby.getEntities().forEach((e) -> {
             e.remove();
         });
-        skywars.getEntities().forEach((e) -> {
+        arena.getEntities().forEach((e) -> {
             e.remove();
         });
     }
+    
     
 }

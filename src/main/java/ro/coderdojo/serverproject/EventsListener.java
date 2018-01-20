@@ -21,13 +21,13 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 public final class EventsListener implements Listener {
     
     World lobby;
-    World skywars;
+    World arena;
 
 
 
-        public EventsListener(World lobby,World skywars){
+        public EventsListener(World lobby,World arena){
             this.lobby = lobby;
-            this.skywars = skywars;
+            this.arena = arena;
         }
 
     
@@ -43,13 +43,9 @@ public final class EventsListener implements Listener {
                 
                 AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		healthAttribute.setBaseValue(20.00);
+                player.setExhaustion(0);
+                player.setFoodLevel(20);
 	}
-        
-        @EventHandler(priority = EventPriority.HIGHEST)
-        public void onBlockBreak(BlockBreakEvent event) {
-        event.getPlayer().sendMessage(ChatColor.YELLOW + " Nu poti sparge " + ChatColor.RED + "lobby-ul!");
-        event.setCancelled(true);
-    }
         
         @EventHandler
 	public void onPlayerInteract(PlayerInteractEvent event) {
@@ -63,10 +59,9 @@ public final class EventsListener implements Listener {
 		if (action == Action.RIGHT_CLICK_BLOCK && material == Material.STONE_BUTTON) {
 			System.out.println("Click: " + location);
 			Location button1 = new Location(MainPlugin.lobby, -1490, 109.0, 683.0, location.getYaw(), location.getPitch());
-			if (location.equals(button1)) {
-                            
-                            player.teleport(new Location(skywars, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
-                            //player.teleport(new Location(skywars, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map DAVID
+			if (location.equals(button1)) {                   
+                            player.teleport(new Location(arena, -344.613,4.00000,28.350));
+//                            player.teleport(new Location(arena, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
                             
 			}
 		}
@@ -81,8 +76,14 @@ public final class EventsListener implements Listener {
 		player.getInventory().clear();
                 AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		healthAttribute.setBaseValue(20.00);
+                player.setExhaustion(0);
+                player.setFoodLevel(20);
                 
         }
-
-
+        
+        @EventHandler(priority = EventPriority.HIGHEST)
+        public void onBlockBreak(BlockBreakEvent event) {
+//            event.getPlayer().sendMessage(ChatColor.YELLOW + " Nu poti sparge " + ChatColor.RED + "lobby-ul!");
+            event.setCancelled(true);
+        }
 }

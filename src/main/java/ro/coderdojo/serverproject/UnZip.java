@@ -19,6 +19,8 @@ public class UnZip {
         File spigotRootFolder = getServer().getWorldContainer();
         File skyWarsFolder = new File(spigotRootFolder.getAbsolutePath() + "/SkyWars_map");
         File lobbyFolder = new File(spigotRootFolder.getAbsolutePath() + "/world_lobby");
+        
+        //editarea lumilor se face in C:\CoderDojo\SkyWars-Project\src\main\resources\worlds
 
 
         if(skyWarsFolder.exists()) {
@@ -35,6 +37,7 @@ public class UnZip {
                 );
         
         }
+        
         if(lobbyFolder.exists()) {
         Files.walk(lobbyFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
                 .sorted(Comparator.reverseOrder())
