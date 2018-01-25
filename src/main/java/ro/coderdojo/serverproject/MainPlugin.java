@@ -23,7 +23,8 @@ public class MainPlugin extends JavaPlugin {
         try {
             unzip();
         } catch (Exception ex) {
-           throw new RuntimeException(ex);
+//           throw new RuntimeException(ex);
+			ex.printStackTrace();
         }
                 
 		loadLobby();             
