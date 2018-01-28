@@ -1,7 +1,7 @@
 package ro.coderdojo.serverproject;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 import java.util.Random;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -19,6 +19,8 @@ public final class ArenaListener implements Listener {
 	public World arena;
 	
 	ArrayList<Location> beaconLocations = new ArrayList();
+	
+	public static HashMap<String, Location> lastTeleportLocation = new HashMap<>();
 
 	public ArenaListener(World arena) {
 		this.arena = arena;
@@ -43,7 +45,32 @@ public final class ArenaListener implements Listener {
 		if (event.getPlayer().getWorld() != arena) {
 			return;
 		}
+		
 		Player player = event.getPlayer();
+		
+	 
+	 
+		if(lastTeleportLocation.get(player.getName()) != null ){
+			Location lastTeleportBlock =  lastTeleportLocation.get(player.getName()).getBlock().getLocation();	
+			Location playerPositionBlock = player.getLocation().getBlock().getLocation();
+			
+			int lastTeleportBlockX = lastTeleportBlock.getBlockX();
+			int lastTeleportBlockZ = lastTeleportBlock.getBlockZ();
+			
+			int playerPositionBlockX = playerPositionBlock.getBlockX();
+			int playerPositionBlockZ = playerPositionBlock.getBlockZ();
+			
+			System.out.println("1:" + lastTeleportBlock);
+			System.out.println("2:" + playerPositionBlock);
+			if(lastTeleportBlockX == playerPositionBlockX && lastTeleportBlockZ == playerPositionBlockZ) {
+				System.out.println("exit");
+				return;
+			} else {
+				System.out.println("reset");
+				lastTeleportLocation.remove(player.getName());
+			}
+		} 
+		
 
 //            Location playerOldLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
 //            Location centru = new Location(arena,-344.613,4.00000,28.350);
@@ -55,9 +82,10 @@ public final class ArenaListener implements Listener {
 
 		//if the block at the player location minus 1 on y is dirt
 		if (event.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType() == Material.BEACON) {
-			Location Chance = beaconLocations.get(new Random().nextInt(beaconLocations.size()));
-			event.getPlayer().teleport(Chance);
-			player.sendMessage("You have been teleported to " + Chance);
+			Location chance = beaconLocations.get(new Random().nextInt(beaconLocations.size()));
+			event.getPlayer().teleport(chance);
+			player.sendMessage("You have been teleported to " + chance);
+			lastTeleportLocation.put(player.getName(), chance);
 		}
 	}
 	//        public void fillChest(){
