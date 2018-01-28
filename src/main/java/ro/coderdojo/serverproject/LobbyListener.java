@@ -29,7 +29,7 @@ public final class LobbyListener implements Listener {
             Player player = event.getPlayer();
             
             if (event.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType() == Material.EMERALD_BLOCK) {
-                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 20, 2));
+                    player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 50, 2));
                 }
             
             

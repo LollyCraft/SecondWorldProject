@@ -4,15 +4,25 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import org.bukkit.Chunk;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
+<<<<<<< Updated upstream
+=======
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+>>>>>>> Stashed changes
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+<<<<<<< Updated upstream
+=======
+import org.bukkit.inventory.ItemStack;
+>>>>>>> Stashed changes
 
 public final class ArenaListener implements Listener {
 
@@ -25,8 +35,51 @@ public final class ArenaListener implements Listener {
             locateBeacons();
 	}
 
+<<<<<<< Updated upstream
 	@EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
+=======
+public final class ArenaListener implements Listener{
+    
+        public World arena;
+        
+        public List<Location> tpLocation = new ArrayList<>();
+        
+        public List<Location> beaconLocation = new ArrayList<>();
+        
+        public ArenaListener(World arena){
+            this.arena = arena;
+//            fillChest();
+        }
+        
+        
+        @EventHandler
+	public void playerJoined(PlayerRespawnEvent event) {
+
+		Player player = event.getPlayer();
+                
+		player.setGameMode(GameMode.SURVIVAL);
+		player.getInventory().clear();
+		player.getInventory().addItem(new ItemStack(Material.DIAMOND_SWORD, 1));
+		player.getInventory().setHelmet(new ItemStack(Material.IRON_HELMET, 1));
+		player.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE, 1));
+		player.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS, 1));
+		player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
+		AttributeInstance healthAttribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+                
+                player.sendMessage("Inventory added");
+                
+		healthAttribute.setBaseValue(20.00);
+                
+                player.getActivePotionEffects().forEach((effect) -> {
+                    player.removePotionEffect(effect.getType());
+                });
+            
+                player.setExhaustion(0);
+                player.setFoodLevel(20);
+		
+	}
+>>>>>>> Stashed changes
 
 		Player player = event.getPlayer();
 
@@ -78,6 +131,7 @@ public final class ArenaListener implements Listener {
 //        inv.addItem(diamond_sword, gold_boots, fish, golden_apple, enderpearl);
 //            
 //        }
+<<<<<<< Updated upstream
 
 	public void locateBeacons() {
 		int amount = 0;
@@ -101,4 +155,28 @@ public final class ArenaListener implements Listener {
 		System.out.println("Total beacons found: " + amount);
 	}
 
+=======
+        
+        public void locateBeacon(){
+            
+            int amount = 0;
+            
+
+            for (Chunk c : arena.getLoadedChunks()) {
+                int cx = c.getX() << 4;
+                int cz = c.getZ() << 4;
+                for (int x = cx; x < cx + 16; x++) {
+                    for (int z = cz; z < cz + 16; z++) {
+                        for (int y = 0; y < 128; y++) {
+                            if (arena.getBlockAt(x, y, z).getType() == Material.BEACON) {
+                                beaconLocation.add(new Location(arena.getHighestBlockAt()));
+                                amount++;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+>>>>>>> Stashed changes
 }

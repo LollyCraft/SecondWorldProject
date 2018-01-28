@@ -11,9 +11,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
@@ -86,4 +89,16 @@ public final class EventsListener implements Listener {
 //            event.getPlayer().sendMessage(ChatColor.YELLOW + " Nu poti sparge " + ChatColor.RED + "lobby-ul!");
             event.setCancelled(true);
         }
+        
+//        public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args,PlayerEvent event) {
+//            
+//            Player player = event.getPlayer();
+//            
+//            if (cmd.getName().equalsIgnoreCase("hub")) { // If the player typed /hub then do the following, note: If you only registered this executor for one command, you don't need this
+//		player.teleport(new Location(lobby, -1522.666, 111.00000, 683.227, -91.6f, 2.1f));
+//		return true;
+//	} //If this has happened the function will return true. 
+//        // If this hasn't happened the value of false will be returned.
+//	return false; 
+//        }
 }
