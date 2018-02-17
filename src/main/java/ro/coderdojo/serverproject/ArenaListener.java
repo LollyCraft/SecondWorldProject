@@ -2,12 +2,16 @@ package ro.coderdojo.serverproject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,6 +29,7 @@ public final class ArenaListener implements Listener {
 	public ArenaListener(World arena) {
 		this.arena = arena;
             locateBeacons();
+            placeBlock();
 	}
 
 	@EventHandler
@@ -70,17 +75,9 @@ public final class ArenaListener implements Listener {
 				lastTeleportLocation.remove(player.getName());
 			}
 		} 
-		
-
-//            Location playerOldLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
-//            Location centru = new Location(arena,-344.613,4.00000,28.350);
-//		for (double locX = -322; locX >= -368; locX--) {
-//			for (double locZ = 48; locZ >= 3; locZ--) {
-//				tpLocation.add(new Location(arena, locX, 4.00000, locZ));
-//			}
-//		}
 
 		//if the block at the player location minus 1 on y is dirt
+                    
 		if (event.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType() == Material.BEACON) {
 			Location chance = beaconLocations.get(new Random().nextInt(beaconLocations.size()));
 			event.getPlayer().teleport(chance);
@@ -88,24 +85,6 @@ public final class ArenaListener implements Listener {
 			lastTeleportLocation.put(player.getName(), chance);
 		}
 	}
-	//        public void fillChest(){
-//            
-//            Location loc = new Location(arena,3.582,118.00000,121.700);
-//        
-//        arena.getBlockAt(loc).setType(Material.CHEST);
-//        Block block = loc.getBlock();
-//        Chest chest = (Chest)block.getState();
-//        Inventory inv = chest.getInventory();
-//       
-//        ItemStack diamond_sword = new ItemStack(Material.DIAMOND_SWORD, 1);
-//        ItemStack gold_boots = new ItemStack(Material.GOLD_BOOTS, 1);
-//        ItemStack fish = new ItemStack(Material.COOKED_FISH, 1);
-//        ItemStack golden_apple = new ItemStack(Material.GOLDEN_APPLE, 1);
-//        ItemStack enderpearl = new ItemStack(Material.ENDER_PEARL, 2);
-//       
-//        inv.addItem(diamond_sword, gold_boots, fish, golden_apple, enderpearl);
-//            
-//        }
 
 	public void locateBeacons() {
 		int amount = 0;
@@ -116,10 +95,10 @@ public final class ArenaListener implements Listener {
 			for (int x = cx; x < cx + 16; x++) {
 				for (int z = cz; z < cz + 16; z++) {
 					for (int y = 0; y < 128; y++) {
-						Block block = arena.getBlockAt(x, y, z);
+						Block block = arena.getBlockAt(x, y+1, z);
 						if (block.getType() == Material.BEACON) {
 							System.out.println("Found beacon: " + block.getLocation());
-							beaconLocations.add(arena.getHighestBlockAt(block.getLocation()).getLocation());
+							beaconLocations.add(arena.getHighestBlockAt(block.getLocation()).getLocation().subtract( 0, -1, 0));
 							amount++;
 						}
 					}
@@ -128,5 +107,65 @@ public final class ArenaListener implements Listener {
 		}
 		System.out.println("Total beacons found: " + amount);
 	}
+
+        
+        //            Location playerOldLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
+//            Location centru = new Location(arena,-344.613,4.00000,28.350);
+//		for (double locX = -322; locX >= -368; locX--) {
+//			for (double locZ = 48; locZ >= 3; locZ--) {
+//				tpLocation.add(new Location(arena, locX, 4.00000, locZ));
+//			}
+//		}
+        
+        
+        //*******************  animal_pet with an invisible golem in it  **************************
+        Map <String, LivingEntity> pets = new HashMap<>();
+        ArrayList<Location> blockLocations = new ArrayList<>();
+        
+
+        public void placeBlock(){
+            
+            
+            for (double locX = -322; locX >= -368; locX--) {
+		for (double locZ = 48; locZ >= 3; locZ--) {
+			blockLocations.add(new Location(arena, locX, 3.00000, locZ));
+		}
+            }
+
+            
+            Location blockLocation = blockLocations.get(new Random().nextInt(blockLocations.size()));
+            Block petBlock = arena.getBlockAt(blockLocation);
+            petBlock.setType(Material.EMERALD_BLOCK);
+            System.out.println("*******placed pet block******");
+            
+            
+        }
+
+        @EventHandler
+        public void petSpawn(PlayerMoveEvent event){ 
+            
+            if (event.getPlayer().getWorld() != arena) {
+			return;
+		}
+            
+            //se spawneaza o tona de mobs,imi trebuie o variabila ce sa opreasca asta
+            Location spawnLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
+            
+            
+            if(spawnLocation.getBlock().getType() == Material.EMERALD_BLOCK){
+                
+                    
+                    Entity cow = arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.COW);
+                    LivingEntity golem = (LivingEntity) arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.IRON_GOLEM);
+ 
+                    cow.setPassenger(golem);
+//                  cow.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 2));
+                
+                    spawnLocation.subtract(0,1,0).getBlock().setType(Material.AIR);
+                    spawnLocation.subtract(0,1,0).getBlock().setType(Material.SAND);
+                
+            }
+        }
+        
 
 }

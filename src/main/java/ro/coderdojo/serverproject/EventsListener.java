@@ -3,7 +3,6 @@ package ro.coderdojo.serverproject;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -11,13 +10,8 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandSender;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.player.PlayerEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 
@@ -50,25 +44,6 @@ public final class EventsListener implements Listener {
                 player.setFoodLevel(20);
 	}
         
-        @EventHandler
-	public void onPlayerInteract(PlayerInteractEvent event) {
-		Player player = event.getPlayer();
-		Action action = event.getAction();
-		if (event.getClickedBlock() == null) {
-			return;
-		}
-		Material material = event.getClickedBlock().getState().getType();
-		Location location = event.getClickedBlock().getState().getLocation();
-		if (action == Action.RIGHT_CLICK_BLOCK && material == Material.STONE_BUTTON) {
-			System.out.println("Click: " + location);
-			Location button1 = new Location(MainPlugin.lobby, -1490, 109.0, 683.0, location.getYaw(), location.getPitch());
-			if (location.equals(button1)) {                   
-                            player.teleport(new Location(arena, -344.613,4.00000,28.350));
-//                            player.teleport(new Location(arena, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
-                            
-			}
-		}
-	}
         
         @EventHandler
 	public void onPlayerRespawn(PlayerRespawnEvent event) {
@@ -100,5 +75,26 @@ public final class EventsListener implements Listener {
 //	} //If this has happened the function will return true. 
 //        // If this hasn't happened the value of false will be returned.
 //	return false; 
+//        }
+        
+        
+        
+        //        public void fillChest(){
+//            
+//            Location loc = new Location(arena,3.582,118.00000,121.700);
+//        
+//        arena.getBlockAt(loc).setType(Material.CHEST);
+//        Block block = loc.getBlock();
+//        Chest chest = (Chest)block.getState();
+//        Inventory inv = chest.getInventory();
+//       
+//        ItemStack diamond_sword = new ItemStack(Material.DIAMOND_SWORD, 1);
+//        ItemStack gold_boots = new ItemStack(Material.GOLD_BOOTS, 1);
+//        ItemStack fish = new ItemStack(Material.COOKED_FISH, 1);
+//        ItemStack golden_apple = new ItemStack(Material.GOLDEN_APPLE, 1);
+//        ItemStack enderpearl = new ItemStack(Material.ENDER_PEARL, 2);
+//       
+//        inv.addItem(diamond_sword, gold_boots, fish, golden_apple, enderpearl);
+//            
 //        }
 }

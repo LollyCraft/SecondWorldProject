@@ -32,7 +32,7 @@ public class MainPlugin extends JavaPlugin {
                 
                 getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
-                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,plugin), this);
+                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena), this);
 //                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 
                                 //Register Command Executors
