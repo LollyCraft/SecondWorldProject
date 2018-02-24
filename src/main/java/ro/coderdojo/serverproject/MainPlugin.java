@@ -28,7 +28,7 @@ public class MainPlugin extends JavaPlugin {
         }
                 
 		loadLobby();             
-                loadSkyWars();
+                loadArena();
                 
                 getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
@@ -60,7 +60,7 @@ public class MainPlugin extends JavaPlugin {
           
     }
     
-    public void loadSkyWars(){
+    public void loadArena(){
            arena = Bukkit.getServer().createWorld(new WorldCreator("SkyWars_map"));
            arena.setGameRuleValue("doMobSpawning", "false");
     }

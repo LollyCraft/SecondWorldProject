@@ -10,7 +10,7 @@ public class CoderDojoCommand implements CommandExecutor {
 
 	@Override
 	public boolean onCommand(CommandSender commandSender, Command command, String label, String[] args) {
-		commandSender.sendMessage("Ai reușit să creezi o comandă în Minecraft cu Spigot");
+		commandSender.sendMessage("Welcome to my SPIGOT SERVER");
 		return true;
 	}
 }
