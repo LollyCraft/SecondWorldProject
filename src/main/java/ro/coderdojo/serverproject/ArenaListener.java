@@ -2,6 +2,7 @@ package ro.coderdojo.serverproject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import org.bukkit.Chunk;
@@ -17,6 +18,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 
 public final class ArenaListener implements Listener {
 
@@ -30,6 +32,8 @@ public final class ArenaListener implements Listener {
 		this.arena = arena;
             locateBeacons();
             placeBlock();
+//            blocksTimer();
+            
 	}
 
 	@EventHandler
@@ -119,8 +123,8 @@ public final class ArenaListener implements Listener {
         
         
         //*******************  animal_pet with an invisible golem in it  **************************
-        Map <String, LivingEntity> pets = new HashMap<>();
         ArrayList<Location> blockLocations = new ArrayList<>();
+        
         
 
         public void placeBlock(){
@@ -141,8 +145,12 @@ public final class ArenaListener implements Listener {
             
         }
 
+            Map <String,List<CraftCreature>> pets = new HashMap<>();
+
         @EventHandler
         public void petSpawn(PlayerMoveEvent event){ 
+            
+            Player player = event.getPlayer();
             
             if (event.getPlayer().getWorld() != arena) {
 			return;
@@ -154,9 +162,11 @@ public final class ArenaListener implements Listener {
             
             if(spawnLocation.getBlock().getType() == Material.EMERALD_BLOCK){
                 
-                    
-                    Entity cow = arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.COW);
-                    LivingEntity golem = (LivingEntity) arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.IRON_GOLEM);
+                    pets.put(player.getName(), new ArrayList<>());
+                    CraftCreature cow = (CraftCreature) arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.COW);
+                    CraftCreature golem = (CraftCreature) arena.spawnEntity(spawnLocation.add(0,1,0), EntityType.IRON_GOLEM);
+                    pets.get(player.getName()).add(golem);
+                    pets.get(player.getName()).add(cow);
  
                     cow.setPassenger(golem);
 //                  cow.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 2));
@@ -167,5 +177,37 @@ public final class ArenaListener implements Listener {
             }
         }
         
+        @EventHandler
+        public void petOnMove(PlayerMoveEvent event) {
+                
+            if (event.getPlayer().getWorld() != arena) {
+			return;
+		}
+
+                Player player = event.getPlayer();
+
+//                double speed = player.getWalkSpeed();
+
+                Location loc = player.getLocation().add(1,0,1);
+
+                List<CraftCreature> plP = pets.get(player.getName());
+
+                for (CraftCreature pit : plP) {
+
+                        pit.getHandle().getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 1.6);
+
+                        pit.setMaxHealth(100);
+
+                        pit.setHealth(100);
+
+                }
+
+        }
+            
+//        private void blocksTimer() {
+//		RepeatTimer timer = new RepeatTimer();
+//		timer.runTaskTimer(MainPlugin.plugin , 20L, 0L);
+//                
+//	}
 
 }

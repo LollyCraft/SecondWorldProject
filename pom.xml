@@ -42,14 +42,14 @@
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <type>jar</type>
         </dependency>
         <!-- additional API - created in local repositories after building the spigot server with BuildTools.jar -->
         <dependency>
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <version>1.12.2-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <type>jar</type>
         </dependency>
 <!--                
         <dependency>
