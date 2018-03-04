@@ -17,22 +17,23 @@ public class UnZip {
 
     public static void unzip(Server server) throws Exception {
         File spigotRootFolder = getServer().getWorldContainer();
-        File skyWarsFolder = new File(spigotRootFolder.getAbsolutePath() + "/SkyWars_map");
+        File arenaFolder = new File(spigotRootFolder.getAbsolutePath() + "/Arena_map");
         File lobbyFolder = new File(spigotRootFolder.getAbsolutePath() + "/world_lobby");
+        File worldFolder = new File(spigotRootFolder.getAbsolutePath() + "/Second_world");
         
         //editarea lumilor se face in C:\CoderDojo\SkyWars-Project\src\main\resources\worlds
 
 
-        if(skyWarsFolder.exists()) {
-        Files.walk(skyWarsFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
+        if(arenaFolder.exists()) {
+        Files.walk(arenaFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
                 .peek(System.out::println)
                 .forEach(
                         (File f) -> {if(f.exists() ) {
-                             System.out.println("del:" + f);
+//                             System.out.println("del:" + f);
                             boolean b = f.delete();
-                            System.out.println("deleted? "+ b);
+//                            System.out.println("deleted? "+ b);
                         }}
                 );
         
@@ -45,9 +46,24 @@ public class UnZip {
                 .peek(System.out::println)
                 .forEach(
                         (File f) -> {if(f.exists() ) {
-                             System.out.println("del:" + f);
+//                             System.out.println("del:" + f);
                             boolean b = f.delete();
-                            System.out.println("deleted? "+ b);
+//                            System.out.println("deleted? "+ b);
+                        }}
+                );
+        
+        }
+        
+        if(worldFolder.exists()) {
+        Files.walk(worldFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .peek(System.out::println)
+                .forEach(
+                        (File f) -> {if(f.exists() ) {
+//                             System.out.println("del:" + f);
+                            boolean b = f.delete();
+//                            System.out.println("deleted? "+ b);
                         }}
                 );
         
@@ -56,25 +72,25 @@ public class UnZip {
 //        skyWarsFolder.mkdirs();
 
         URI uri = UnZip.class.getResource("/worlds").toURI();
-        System.out.println("!!!!" + uri);
+//        System.out.println("!!!!" + uri);
         Path myPath;
         if (uri.getScheme().equals("jar")) {
-            System.out.println("jar");
+//            System.out.println("jar");
             FileSystem fileSystem = FileSystems.newFileSystem(uri, Collections.<String, Object>emptyMap());
             myPath = fileSystem.getPath("/worlds");
-            System.out.println("!!!!path:" + myPath);
+//            System.out.println("!!!!path:" + myPath);
         } else {
             myPath = Paths.get(uri);
         }
-        System.out.println("start copy");
+//        System.out.println("start copy");
         Files.walk(myPath, Integer.MAX_VALUE).forEach(
                 (Path p) -> {
-                    System.out.println("walk:"+p);
+//                    System.out.println("walk:"+p);
 //                    if (p.toFile().isFile()) {
                         try {
                             String srcPath = p.toUri().toASCIIString();
                             String destination = spigotRootFolder.getAbsoluteFile().toPath() + "/" + srcPath.substring(srcPath.indexOf("/worlds/")+8);
-                             System.out.println(" copy " + p + " ----> " + destination);
+//                             System.out.println(" copy " + p + " ----> " + destination);
                             Files.copy(p, new File(destination).toPath());
                         } catch (Exception e) {
                             e.printStackTrace();

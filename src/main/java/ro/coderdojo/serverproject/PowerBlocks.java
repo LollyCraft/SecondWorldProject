@@ -10,6 +10,7 @@ import org.bukkit.block.Block;
 
 public class PowerBlocks {
     
+    
     public ArrayList<Location> blockLocations = new ArrayList<>();
   
     
@@ -31,9 +32,12 @@ public class PowerBlocks {
             Location blockKitLocation = blockLocations.get(new Random().nextInt(blockLocations.size()));
             Block kitBlock = arena.getBlockAt(blockKitLocation);
             kitBlock.setType(Material.DIAMOND_BLOCK);
-            System.out.println("*******placed KIT block******");
+            System.out.println("*******placed GOD KIT block******");
             
-            
+            Location blockWitchLocation = blockLocations.get(new Random().nextInt(blockLocations.size()));
+            Block witchLocation = arena.getBlockAt(blockWitchLocation);
+            witchLocation.setType(Material.GOLD_BLOCK);
+            System.out.println("*******placed WITCH KIT block******");
         }
     
 }

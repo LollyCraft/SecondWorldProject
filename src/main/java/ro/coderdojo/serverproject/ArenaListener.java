@@ -18,6 +18,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 
 public final class ArenaListener implements Listener {
@@ -66,7 +67,7 @@ public final class ArenaListener implements Listener {
             int playerPositionBlockZ = playerPositionBlock.getBlockZ();
 
             if (lastTeleportBlockX == playerPositionBlockX && lastTeleportBlockZ == playerPositionBlockZ) {
-                isFirstTimeOnBlock = false;                
+                isFirstTimeOnBlock = false;   
                 return;
             } else {
                 lastLocation.remove(player.getName());
@@ -74,11 +75,14 @@ public final class ArenaListener implements Listener {
             }
         }
         onTeleportMove(event);
-        getKit(event);
+        getGodKit(event);
         petSpawn(event);
         petOnMove(event);
+        getWitchKit(event);
         
     }
+    
+    //------------------------------------------------------------------------------------------
     
     public void onTeleportMove(PlayerMoveEvent event) {
         if (event.getPlayer().getWorld() != arena) {
@@ -120,22 +124,23 @@ public final class ArenaListener implements Listener {
         System.out.println("Total beacons found: " + amount);
     }
 
-    //*******************  animal_pet with an invisible golem in it  **************************
+    //**************************** GOD KIT *********************************
     ArrayList<Location> blockLocations = new ArrayList<>();
 
     
-    public void getKit(PlayerMoveEvent event) {
+    public void getGodKit(PlayerMoveEvent event) {
 
         Player player = event.getPlayer();
 
         if (event.getPlayer().getWorld() != arena) {
             return;
         }
-
-        //se spawneaza o tona de mobs,imi trebuie o variabila ce sa opreasca asta
+        
         Location kitLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
         
         if (kitLocation.getBlock().getType() == Material.DIAMOND_BLOCK) {
+            
+            player.getInventory().clear();
 
             ItemStack godSword = new ItemStack(Material.DIAMOND_SWORD, 1);
             godSword.addEnchantment(Enchantment.KNOCKBACK, 2);
@@ -148,13 +153,15 @@ public final class ArenaListener implements Listener {
             
             lastLocation.put(player.getName(), kitLocation);
             
-            kitLocation.subtract(0, 1, 0).getBlock().setType(Material.AIR);
-            kitLocation.subtract(0, 1, 0).getBlock().setType(Material.SAND);
-            //NU DISPARE BLOCUL DE DIAMOND
-
+            kitLocation.getBlock().setType(Material.AIR);
+            kitLocation.getBlock().setType(Material.SAND);
+          
+            numberOfBlocks--;
         }
+//        powerTimer();
     }
 
+        //*******************  animal_pet with an invisible golem in it  **************************
     Map<String, List<CraftCreature>> pets = new HashMap<>();
 
     
@@ -166,7 +173,6 @@ public final class ArenaListener implements Listener {
             return;
         }
 
-        //se spawneaza o tona de mobs,imi trebuie o variabila ce sa opreasca asta
         Location spawnLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
 
         if (spawnLocation.getBlock().getType() == Material.EMERALD_BLOCK) {
@@ -182,7 +188,7 @@ public final class ArenaListener implements Listener {
 
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.AIR);
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.SAND);
-
+            numberOfBlocks--;
         }
 
     }
@@ -210,14 +216,58 @@ public final class ArenaListener implements Listener {
 
     }
 
+    //*********************** WITCH KIT **********************************
+    
+    public void getWitchKit(PlayerMoveEvent event) {
+
+        Player player = event.getPlayer();
+
+        if (event.getPlayer().getWorld() != arena) {
+            return;
+        }
+
+        Location kitLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
+        
+        if (kitLocation.getBlock().getType() == Material.GOLD_BLOCK) {
+            
+            player.getInventory().clear();
+
+            ItemStack witchSword = new ItemStack(Material.GOLD_SWORD, 1);
+            witchSword.addEnchantment(Enchantment.KNOCKBACK, 2);
+
+            player.getInventory().addItem(witchSword);
+            player.getInventory().setHelmet(new ItemStack(Material.GOLD_HELMET, 1));
+            player.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE, 1));
+            player.getInventory().setLeggings(new ItemStack(Material.GOLD_LEGGINGS, 1));
+            player.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS, 1));
+            
+            lastLocation.put(player.getName(), kitLocation);
+            
+            kitLocation.getBlock().setType(Material.AIR);
+            kitLocation.getBlock().setType(Material.SAND);
+            numberOfBlocks--;
+        }
+    }
+    
+    //*********************************************************************
+    int numberOfBlocks = 0;
+    
     private void blocksTimer() {
+        if(numberOfBlocks < 10){
         RepeatTimer timer = new RepeatTimer();
         timer.runTaskTimer(MainPlugin.plugin, 0L, 20L);
-
+        numberOfBlocks ++;
+        //ajunge la 15 si se opreste
+        }else System.out.println("----NR MAXIM DE POWER BLOCKS-------");
     }
 
 //        public void placePowerBlock(){
 //            PowerBlocks powerBlock = new PowerBlocks();
 //            powerBlock.placeBlock(arena);
 //        }
+    
+    private void powerTimer(){
+        CountDownTimer timer = new CountDownTimer();
+        timer.runTaskTimer(MainPlugin.plugin, 1,1);
+    }
 }

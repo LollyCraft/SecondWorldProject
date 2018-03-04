@@ -5,15 +5,13 @@ import java.util.ArrayList;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 public class RepeatTimer extends BukkitRunnable{
     
-      public World arena = Bukkit.getServer().getWorld("SkyWars_map");
+      public World arena = Bukkit.getServer().getWorld("Arena_map");
       
        ArrayList<Location> blockLocations = new ArrayList<>();
-       Player player ;
     
             private int counter = 5 * 20;
 

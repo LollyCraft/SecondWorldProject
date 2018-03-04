@@ -17,11 +17,14 @@ public final class LobbyListener implements Listener {
 
     public World lobby;
     public World arena;
+    public World second_world;
     public Plugin plugin;
 
-    public LobbyListener(World lobby, World arena) {
+
+    public LobbyListener(World lobby, World arena,World second_world) {
         this.lobby = lobby;
         this.arena = arena;
+        this.second_world = second_world;
     }
 
      @EventHandler
@@ -50,13 +53,20 @@ public final class LobbyListener implements Listener {
 		Location location = event.getClickedBlock().getState().getLocation();
 		if (action == Action.RIGHT_CLICK_BLOCK && material == Material.STONE_BUTTON) {
 			System.out.println("Click: " + location);
+                        
 			Location button1 = new Location(MainPlugin.lobby, -1490, 109.0, 683.0, location.getYaw(), location.getPitch());
 			if (location.equals(button1)) {                   
                             player.teleport(new Location(arena, -344.613,4.00000,28.350));
 //                            player.teleport(new Location(arena, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
-                            
+			}
+                        
+                        Location button2 = new Location(MainPlugin.lobby,-1523, 109.0, 716.0, location.getYaw(), location.getPitch());
+                        if (location.equals(button2)) {                   
+                            player.teleport(new Location(second_world, -8.062,32.00000,21.062));
 			}
 		}
+                
+                
 	}
     
 }

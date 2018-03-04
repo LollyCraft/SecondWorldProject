@@ -10,6 +10,7 @@ public class MainPlugin extends JavaPlugin {
 
     public static World lobby;
     public static World arena;
+    public static World second_world;
     
     public static JavaPlugin plugin;
 
@@ -29,10 +30,12 @@ public class MainPlugin extends JavaPlugin {
                 
 		loadLobby();             
                 loadArena();
+                loadSecondWorld();
                 
                 getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
-                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena), this);
+                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena,second_world), this);
+                getServer().getPluginManager().registerEvents(new SecondWorldListener(second_world), this);
 //                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 
                                 //Register Command Executors
@@ -56,13 +59,19 @@ public class MainPlugin extends JavaPlugin {
           lobby = Bukkit.getServer().createWorld(new WorldCreator("world_lobby"));
           lobby.setGameRuleValue("doMobSpawning", "false");
           lobby.setPVP(false);
-          lobby.setStorm(false);
           
     }
     
     public void loadArena(){
-           arena = Bukkit.getServer().createWorld(new WorldCreator("SkyWars_map"));
+           arena = Bukkit.getServer().createWorld(new WorldCreator("Arena_map"));
            arena.setGameRuleValue("doMobSpawning", "false");
+    }
+    
+    public void loadSecondWorld(){
+           second_world = Bukkit.getServer().createWorld(new WorldCreator("Second_world"));
+           second_world.setGameRuleValue("doMobSpawning", "false");
+           second_world.setPVP(false);
+           second_world.setGameRuleValue("keepInventory", "true");
     }
 
     private void killAllMobs() {
