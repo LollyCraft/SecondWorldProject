@@ -18,7 +18,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.player.PlayerEvent;
 import org.bukkit.inventory.ItemStack;
 
 public final class ArenaListener implements Listener {
@@ -156,7 +155,8 @@ public final class ArenaListener implements Listener {
             kitLocation.getBlock().setType(Material.AIR);
             kitLocation.getBlock().setType(Material.SAND);
           
-            numberOfBlocks--;
+            
+             powerTimer(player);
         }
 //        powerTimer();
     }
@@ -188,7 +188,8 @@ public final class ArenaListener implements Listener {
 
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.AIR);
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.SAND);
-            numberOfBlocks--;
+            
+            powerTimer(player);
         }
 
     }
@@ -211,8 +212,12 @@ public final class ArenaListener implements Listener {
                 creature.getHandle().getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 1.6);
                 creature.setMaxHealth(100);
                 creature.setHealth(100);
+                if (loc.distanceSquared(creature.getLocation()) > 100 && player.isOnGround() ) {
+                    creature.teleport(loc);
+                }
             }
         }
+        
 
     }
 
@@ -245,20 +250,17 @@ public final class ArenaListener implements Listener {
             
             kitLocation.getBlock().setType(Material.AIR);
             kitLocation.getBlock().setType(Material.SAND);
-            numberOfBlocks--;
+
+            
+             powerTimer(player);
         }
     }
     
     //*********************************************************************
-    int numberOfBlocks = 0;
     
     private void blocksTimer() {
-        if(numberOfBlocks < 10){
         RepeatTimer timer = new RepeatTimer();
-        timer.runTaskTimer(MainPlugin.plugin, 0L, 20L);
-        numberOfBlocks ++;
-        //ajunge la 15 si se opreste
-        }else System.out.println("----NR MAXIM DE POWER BLOCKS-------");
+        timer.runTaskTimer(MainPlugin.plugin, 0L, 10*20L);
     }
 
 //        public void placePowerBlock(){
@@ -266,8 +268,9 @@ public final class ArenaListener implements Listener {
 //            powerBlock.placeBlock(arena);
 //        }
     
-    private void powerTimer(){
-        CountDownTimer timer = new CountDownTimer();
+    private void powerTimer(Player player){
+        
+        CountDownTimer timer = new CountDownTimer(pets.get(player.getName()),player);
         timer.runTaskTimer(MainPlugin.plugin, 1,1);
     }
 }

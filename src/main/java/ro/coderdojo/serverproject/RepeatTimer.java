@@ -13,23 +13,25 @@ public class RepeatTimer extends BukkitRunnable{
       
        ArrayList<Location> blockLocations = new ArrayList<>();
     
-            private int counter = 5 * 20;
+            private int counter = 20;
 
 
 	@Override
 	public void run() {
 		if (counter > 0) {
-			if (counter % 20 == 0) {
 				MainPlugin.plugin.getServer().broadcastMessage("Placed");
                                 placePowBlock(arena);
-			}
-			counter = counter - 1;
+			
+			counter--;
+                } else{
+                    this.cancel();
                 }
 	}
         
         public void placePowBlock(World arena){
             PowerBlocks powBlock = new PowerBlocks();
             powBlock.placeBlock(arena);
+            counter++;
         }
            
         
