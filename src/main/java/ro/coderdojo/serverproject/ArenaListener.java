@@ -100,7 +100,7 @@ public final class ArenaListener implements Listener {
         if (event.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType() == Material.BEACON) {
             Location chance = beaconLocations.get(new Random().nextInt(beaconLocations.size()));
             event.getPlayer().teleport(chance);
-            player.sendMessage("You have been teleported to " + chance);
+//            player.sendMessage("You have been teleported to " + chance);
             lastLocation.put(player.getName(), chance);
         }
     }

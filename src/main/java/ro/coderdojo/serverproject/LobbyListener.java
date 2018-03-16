@@ -86,13 +86,13 @@ public final class LobbyListener implements Listener {
         public void floatingText(){
             
             Location loc1 = new Location(lobby,-1516.648,110.00000,683.393);
-            ArmorStand  entity = (ArmorStand) second_world.spawnEntity(loc1, EntityType.ARMOR_STAND);
+            ArmorStand  entity = (ArmorStand) lobby.spawnEntity(loc1, EntityType.ARMOR_STAND);
             entity.setCustomName(ChatColor.GOLD + "-- To Battle arena --");
             entity.setCustomNameVisible(true);
             entity.setVisible(false);
             
             Location loc2 = new Location(lobby,-1522.464,110.00000,689.406);
-            ArmorStand  entity2 = (ArmorStand) second_world.spawnEntity(loc2, EntityType.ARMOR_STAND);
+            ArmorStand  entity2 = (ArmorStand) lobby.spawnEntity(loc2, EntityType.ARMOR_STAND);
             entity2.setCustomName(ChatColor.GOLD + "-- To Second World --");
             entity2.setCustomNameVisible(true);
             entity2.setVisible(false);

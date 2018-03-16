@@ -40,13 +40,11 @@ public class MainPlugin extends JavaPlugin {
 
                                 //Register Command Executors
 		this.getCommand("CoderDojo").setExecutor(new CoderDojoCommand());
-//                this.getCommand("hub").setExecutor(new CommandHub());
+                this.getCommand("hub").setExecutor(new CommandHub());
                
                         
                 killAllMobs();
                 
-                
-            this.getCommand("hub").setExecutor(new CommandHub());
                 
     }
     
