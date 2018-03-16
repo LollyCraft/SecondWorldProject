@@ -13,7 +13,7 @@ public class RepeatTimer extends BukkitRunnable{
       
        ArrayList<Location> blockLocations = new ArrayList<>();
     
-            private int counter = 20;
+            private int counter = 10;
 
 
 	@Override

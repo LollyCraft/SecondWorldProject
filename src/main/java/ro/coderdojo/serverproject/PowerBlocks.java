@@ -38,6 +38,11 @@ public class PowerBlocks {
             Block witchLocation = arena.getBlockAt(blockWitchLocation);
             witchLocation.setType(Material.GOLD_BLOCK);
             System.out.println("*******placed WITCH KIT block******");
+            
+            Location blockHealingLocation = blockLocations.get(new Random().nextInt(blockLocations.size()));
+            Block healingLocation = arena.getBlockAt(blockHealingLocation);
+            healingLocation.setType(Material.REDSTONE_BLOCK);
+            System.out.println("*******placed Healing block******");
         }
     
 }

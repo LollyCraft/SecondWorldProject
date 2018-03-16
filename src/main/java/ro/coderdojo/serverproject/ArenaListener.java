@@ -19,6 +19,8 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public final class ArenaListener implements Listener {
 
@@ -48,6 +50,7 @@ public final class ArenaListener implements Listener {
         player.setExhaustion(0);
         player.setFoodLevel(20);
         player.getInventory().clear();
+        player.setExhaustion​(0);
     }
     
     @EventHandler
@@ -78,6 +81,7 @@ public final class ArenaListener implements Listener {
         petSpawn(event);
         petOnMove(event);
         getWitchKit(event);
+        getHealing(event);
         
     }
     
@@ -256,11 +260,33 @@ public final class ArenaListener implements Listener {
         }
     }
     
+    //------------------Healing Block----------------------------
+    
+    public void getHealing(PlayerMoveEvent event){
+        Player player = event.getPlayer();
+
+        if (event.getPlayer().getWorld() != arena) {
+            return;
+        }
+
+        Location healLocation = event.getPlayer().getLocation().subtract(0, 1, 0);
+        
+        if (healLocation.getBlock().getType() == Material.REDSTONE_BLOCK) {
+            
+            player.addPotionEffect(new PotionEffect (PotionEffectType.HEAL, 50, 2));
+            
+            lastLocation.put(player.getName(), healLocation);
+            
+            healLocation.getBlock().setType(Material.AIR);
+            healLocation.getBlock().setType(Material.SAND);
+        }
+    }
+    
     //*********************************************************************
     
     private void blocksTimer() {
         RepeatTimer timer = new RepeatTimer();
-        timer.runTaskTimer(MainPlugin.plugin, 0L, 10*20L);
+        timer.runTaskTimer(MainPlugin.plugin, 0L, 20*20L);
     }
 
 //        public void placePowerBlock(){

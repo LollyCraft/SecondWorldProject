@@ -4,7 +4,7 @@ author: CoderDojo Ninja
 main: ro.coderdojo.serverproject.MainPlugin
 commands:
   CoderDojo:
-    description: Execute example command
-    usage: /<command>
-    permission: <plugin name>.basic
-    permission-message: You don't have <permission>
+   description: Execute example command
+   usage: /<command>
+   permission: <plugin name>.basic
+   permission-message: You don't have <permission>
