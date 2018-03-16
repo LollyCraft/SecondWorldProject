@@ -12,6 +12,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -30,6 +31,21 @@ public final class LobbyListener implements Listener {
         this.second_world = second_world;
         
         floatingText();
+    }
+    
+    @EventHandler
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+
+        Player player = event.getPlayer();
+
+        player.getActivePotionEffects().forEach((effect) -> {
+            player.removePotionEffect(effect.getType());
+        });
+
+        player.setExhaustion(0);
+        player.setFoodLevel(20);
+        player.getInventory().clear();
+        player.setExhaustion​(0);
     }
 
      @EventHandler
@@ -62,38 +78,42 @@ public final class LobbyListener implements Listener {
 			Location button1 = new Location(MainPlugin.lobby, -1490, 109.0, 683.0, location.getYaw(), location.getPitch());
 			if (location.equals(button1)) {                   
                             player.teleport(new Location(arena, -344.613,4.00000,28.350));
-                            player.sendMessage("Teleported to Battle Arena");
+                            player.sendMessage(ChatColor.BLUE + "Teleported to Battle Arena");
 //                            player.teleport(new Location(arena, 3.882, 118.00000, 117.717, 1.7f, 4.8f));//coord pt SkyWars_Map original
 			}
                         
                         Location button2 = new Location(MainPlugin.lobby,-1523, 109.0, 716.0, location.getYaw(), location.getPitch());
                         if (location.equals(button2)) {                   
                             player.teleport(new Location(second_world, -9.052,32.00000,17.931));
-                            player.sendMessage("Teleported to Second World");
+                            player.sendMessage(ChatColor.BLUE + "Teleported to Second World");
 			}
                         
-		}
-                
-                Location loc = player.getLocation().subtract(0, 1, 0);
+		}                  
+	}
+        
+        @EventHandler
+        public void onMove(PlayerMoveEvent event){
+            
+            Player player = event.getPlayer();
+            
+            Location loc = player.getLocation().subtract(0, 1, 0);
                 if(loc.getBlock().getType() == Material.GOLD_BLOCK){
-                    player.teleport(new Location(lobby, -1522.448,111.00000,683.434,location.getYaw(), location.getPitch()));
+                    player.teleport(new Location(lobby, -1522, 111.0, 683.0));
                     player.sendMessage("Teleported back to lobby");
                 }
-                
-                
-	}
+        }
         
         public void floatingText(){
             
-            Location loc1 = new Location(lobby,-1516.648,110.00000,683.393);
+            Location loc1 = new Location(lobby,-1516.648,111.00000,683.393);
             ArmorStand  entity = (ArmorStand) lobby.spawnEntity(loc1, EntityType.ARMOR_STAND);
-            entity.setCustomName(ChatColor.GOLD + "-- To Battle arena --");
+            entity.setCustomName(ChatColor.RED + "-- To Battle arena --");
             entity.setCustomNameVisible(true);
             entity.setVisible(false);
             
-            Location loc2 = new Location(lobby,-1522.464,110.00000,689.406);
+            Location loc2 = new Location(lobby,-1522.464,111.00000,689.406);
             ArmorStand  entity2 = (ArmorStand) lobby.spawnEntity(loc2, EntityType.ARMOR_STAND);
-            entity2.setCustomName(ChatColor.GOLD + "-- To Second World --");
+            entity2.setCustomName(ChatColor.WHITE + "-- To Second World --");
             entity2.setCustomNameVisible(true);
             entity2.setVisible(false);
         }

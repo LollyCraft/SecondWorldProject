@@ -56,21 +56,22 @@ public class MainPlugin extends JavaPlugin {
     
     public void loadLobby(){
           lobby = Bukkit.getServer().createWorld(new WorldCreator("world_lobby"));
-          lobby.setGameRuleValue("doMobSpawning", "false");
           lobby.setPVP(false);
-          
+          lobby.setGameRuleValue("doDaynightCycle", "false");       
+          stdGameRules(lobby);
     }
     
     public void loadArena(){
            arena = Bukkit.getServer().createWorld(new WorldCreator("Arena_map"));
-           arena.setGameRuleValue("doMobSpawning", "false");
+           stdGameRules(arena);
+           arena.setGameRuleValue("naturalRegeneration", "false");
     }
     
     public void loadSecondWorld(){
            second_world = Bukkit.getServer().createWorld(new WorldCreator("Second_world"));
-           second_world.setGameRuleValue("doMobSpawning", "false");
            second_world.setPVP(false);
-           second_world.setGameRuleValue("keepInventory", "true");
+
+           stdGameRules(second_world);
     }
 
     private void killAllMobs() {
@@ -80,7 +81,17 @@ public class MainPlugin extends JavaPlugin {
         arena.getEntities().forEach((e) -> {
             e.remove();
         });
+        second_world.getEntities().forEach((e) -> {
+            e.remove();
+        });
     }
     
+    public void stdGameRules(World world){
+        world.setGameRuleValue("doMobSpawning", "false");
+        world.setGameRuleValue("doMobLoot", "false");
+        world.setGameRuleValue("fallDamage", "false"); 
+        world.setGameRuleValue("doWeatherCycle", "false");
+        world.setGameRuleValue("keepInventory", "true");
+    }
     
 }

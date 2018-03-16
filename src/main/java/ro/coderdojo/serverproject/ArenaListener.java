@@ -116,7 +116,7 @@ public final class ArenaListener implements Listener {
                     for (int y = 0; y < 128; y++) {
                         Block block = arena.getBlockAt(x, y + 1, z);
                         if (block.getType() == Material.BEACON) {
-                            System.out.println("Found beacon: " + block.getLocation());
+//                            System.out.println("Found beacon: " + block.getLocation());
                             beaconLocations.add(arena.getHighestBlockAt(block.getLocation()).getLocation().subtract(0, -1, 0));
                             amount++;
                         }
@@ -188,7 +188,7 @@ public final class ArenaListener implements Listener {
             pets.get(player.getName()).add(cow);
 
             cow.setPassenger(golem);
-//                  cow.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 10000000, 2));
+            golem.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 3600, 2));
 
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.AIR);
             spawnLocation.subtract(0, 1, 0).getBlock().setType(Material.SAND);

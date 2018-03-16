@@ -33,6 +33,11 @@ public class CountDownTimer extends BukkitRunnable {
              }
                 creatures.removeAll(creatures);
             }
+            if(player.getInventory() != null){
+                //.contains(Material.DIAMOND_HELMET, 1) -> voiam sa fac la fiecare kit separat
+                player.getInventory().clear();
+            }
+            messagePlayer(player);
             this.cancel();
 
         }

@@ -1,6 +1,7 @@
 package ro.coderdojo.serverproject;
 
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -14,7 +15,8 @@ public class CommandHub implements CommandExecutor {
                 if (sender instanceof Player) {
                     Player player = (Player) sender;
              
-                    player.teleport(new Location(MainPlugin.lobby,-1490, 109.0, 683.0));
+                    player.teleport(new Location(MainPlugin.lobby,-1522, 111.0, 683.0));
+                    player.sendMessage(ChatColor.BLUE + "Teleported to lobby");
                 }
 
                  // If the player (or console) uses our command correct, we can return true
