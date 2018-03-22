@@ -11,6 +11,7 @@ public class MainPlugin extends JavaPlugin {
     public static World lobby;
     public static World arena;
     public static World second_world;
+
     
     public static JavaPlugin plugin;
 
@@ -94,4 +95,5 @@ public class MainPlugin extends JavaPlugin {
         world.setGameRuleValue("keepInventory", "true");
     }
     
+
 }

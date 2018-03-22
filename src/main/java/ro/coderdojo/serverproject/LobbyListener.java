@@ -1,6 +1,7 @@
 package ro.coderdojo.serverproject;
 
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -11,6 +12,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
@@ -32,6 +34,14 @@ public final class LobbyListener implements Listener {
         
         floatingText();
     }
+    
+//    @EventHandler
+//	public void playerJoined(PlayerJoinEvent event) throws Exception {
+//		Player player = event.getPlayer();
+//		player.setGameMode(GameMode.SURVIVAL);
+//		player.getInventory().clear();
+//                
+//        }
     
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
