@@ -47,7 +47,7 @@ public class CountDownTimer extends BukkitRunnable {
     public void messagePlayer(Player player) {
 
                 player.getInventory().clear();
-                player.sendMessage(ChatColor.RED + "Power has been used." );
+//                player.sendMessage(ChatColor.RED + "Power has been used." );
                 
 //            player.sendMessage(ChatColor.WHITE + "Power for " + ChatColor.RED + counter / 20 + ChatColor.WHITE + " seconds");
         //e enervant

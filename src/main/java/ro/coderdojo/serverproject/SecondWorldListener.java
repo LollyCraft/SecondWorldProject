@@ -1,5 +1,7 @@
 package ro.coderdojo.serverproject;
 
+import java.util.HashMap;
+import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -8,18 +10,27 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class SecondWorldListener implements Listener {
 
     public World second_world;
+    
+    Map<String, Location> plots = new HashMap<>();
 
     public SecondWorldListener(World second_world) {
         this.second_world = second_world;
-        
-        animalSigns();
-
     }
+    
+    @EventHandler
+	public void playerJoined(PlayerJoinEvent event) throws Exception {
+		Player player = event.getPlayer();
+//		player.setGameMode(GameMode.SURVIVAL);
+		player.getInventory().clear();
+                animalSigns();
+        }
 
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
@@ -54,7 +65,11 @@ public class SecondWorldListener implements Listener {
         entity2.setVisible(false);
 
     }
-
     
-
+    @EventHandler
+    public void shop(PlayerInteractEvent event){
+        Shop shop = new Shop(second_world);
+        shop.onPlayerInteract(event);
+    }
+    
 }

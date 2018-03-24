@@ -32,16 +32,16 @@ public final class LobbyListener implements Listener {
         this.arena = arena;
         this.second_world = second_world;
         
-        floatingText();
+//        floatingText();
     }
     
-//    @EventHandler
-//	public void playerJoined(PlayerJoinEvent event) throws Exception {
-//		Player player = event.getPlayer();
+    @EventHandler
+	public void playerJoined(PlayerJoinEvent event) throws Exception {
+		Player player = event.getPlayer();
 //		player.setGameMode(GameMode.SURVIVAL);
-//		player.getInventory().clear();
-//                
-//        }
+		player.getInventory().clear();
+                floatingText();
+        }
     
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
@@ -56,6 +56,7 @@ public final class LobbyListener implements Listener {
         player.setFoodLevel(20);
         player.getInventory().clear();
         player.setExhaustion​(0);
+        
     }
 
      @EventHandler
@@ -104,6 +105,10 @@ public final class LobbyListener implements Listener {
         @EventHandler
         public void onMove(PlayerMoveEvent event){
             
+            if (event.getPlayer().getWorld() != lobby) {
+            return;
+        }
+            
             Player player = event.getPlayer();
             
             Location loc = player.getLocation().subtract(0, 1, 0);
@@ -116,14 +121,16 @@ public final class LobbyListener implements Listener {
         public void floatingText(){
             
             Location loc1 = new Location(lobby,-1516.648,111.00000,683.393);
-            ArmorStand  entity = (ArmorStand) lobby.spawnEntity(loc1, EntityType.ARMOR_STAND);
-            entity.setCustomName(ChatColor.RED + "-- To Battle arena --");
-            entity.setCustomNameVisible(true);
-            entity.setVisible(false);
+            ArmorStand  entity1 = lobby.spawn(loc1, ArmorStand.class);
+            entity1.setCustomName(ChatColor.RED + "-- To Battle arena --");
+            entity1.setCustomNameVisible(true);
+            entity1.setVisible(false);
+
+            //nu se  spawneaza armour stand-urile
             
             Location loc2 = new Location(lobby,-1522.464,111.00000,689.406);
             ArmorStand  entity2 = (ArmorStand) lobby.spawnEntity(loc2, EntityType.ARMOR_STAND);
-            entity2.setCustomName(ChatColor.WHITE + "-- To Second World --");
+            entity2.setCustomName(ChatColor.BLUE + "-- To Second World --");
             entity2.setCustomNameVisible(true);
             entity2.setVisible(false);
         }

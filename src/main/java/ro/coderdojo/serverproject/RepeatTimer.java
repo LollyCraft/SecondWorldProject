@@ -19,7 +19,7 @@ public class RepeatTimer extends BukkitRunnable{
 	@Override
 	public void run() {
 		if (counter > 0) {
-				MainPlugin.plugin.getServer().broadcastMessage("Placed");
+//				MainPlugin.plugin.getServer().broadcastMessage("Placed");
                                 placePowBlock(arena);
 			
 			counter--;

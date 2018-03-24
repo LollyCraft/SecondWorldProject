@@ -37,11 +37,13 @@ public class MainPlugin extends JavaPlugin {
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
                 getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena,second_world), this);
                 getServer().getPluginManager().registerEvents(new SecondWorldListener(second_world), this);
+                getServer().getPluginManager().registerEvents(Money.getInstance(), this);
 //                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 
                                 //Register Command Executors
 		this.getCommand("CoderDojo").setExecutor(new CoderDojoCommand());
                 this.getCommand("hub").setExecutor(new CommandHub());
+                this.getCommand("moneyBank").setExecutor(new CommandMoney());
                
                         
                 killAllMobs();
