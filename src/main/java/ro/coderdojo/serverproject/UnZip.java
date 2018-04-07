@@ -17,9 +17,11 @@ public class UnZip {
 
     public static void unzip(Server server) throws Exception {
         File spigotRootFolder = getServer().getWorldContainer();
+        File archeryFolder = new File(spigotRootFolder.getAbsolutePath() + "/Archery_map");
         File arenaFolder = new File(spigotRootFolder.getAbsolutePath() + "/Arena_map");
         File lobbyFolder = new File(spigotRootFolder.getAbsolutePath() + "/world_lobby");
         File worldFolder = new File(spigotRootFolder.getAbsolutePath() + "/Second_world");
+
         
         //editarea lumilor se face in C:\CoderDojo\SkyWars-Project\src\main\resources\worlds
 
@@ -56,6 +58,21 @@ public class UnZip {
         
         if(worldFolder.exists()) {
         Files.walk(worldFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
+                .sorted(Comparator.reverseOrder())
+                .map(Path::toFile)
+                .peek(System.out::println)
+                .forEach(
+                        (File f) -> {if(f.exists() ) {
+//                             System.out.println("del:" + f);
+                            boolean b = f.delete();
+//                            System.out.println("deleted? "+ b);
+                        }}
+                );
+        
+        }
+        
+        if(archeryFolder.exists()) {
+        Files.walk(archeryFolder.toPath(), FileVisitOption.FOLLOW_LINKS)
                 .sorted(Comparator.reverseOrder())
                 .map(Path::toFile)
                 .peek(System.out::println)

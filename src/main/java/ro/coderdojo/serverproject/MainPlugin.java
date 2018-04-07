@@ -11,6 +11,7 @@ public class MainPlugin extends JavaPlugin {
     public static World lobby;
     public static World arena;
     public static World second_world;
+    public static World archery;
 
     
     public static JavaPlugin plugin;
@@ -32,11 +33,13 @@ public class MainPlugin extends JavaPlugin {
 		loadLobby();             
                 loadArena();
                 loadSecondWorld();
+                loadArchery();
                 
                 getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
-                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena,second_world), this);
+                getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena,second_world,archery), this);
                 getServer().getPluginManager().registerEvents(new SecondWorldListener(second_world), this);
+                getServer().getPluginManager().registerEvents(new ArcheryListener(archery), this);
                 getServer().getPluginManager().registerEvents(Money.getInstance(), this);
 //                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 
@@ -75,6 +78,13 @@ public class MainPlugin extends JavaPlugin {
            second_world.setPVP(false);
 
            stdGameRules(second_world);
+    }
+    
+    public void loadArchery(){
+          archery = Bukkit.getServer().createWorld(new WorldCreator("Archery_map"));
+          archery.setPVP(false);
+          archery.setGameRuleValue("doDaynightCycle", "false");       
+          stdGameRules(archery);
     }
 
     private void killAllMobs() {

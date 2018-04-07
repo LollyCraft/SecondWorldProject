@@ -121,7 +121,7 @@ public class Shop {
             case "sand":
                 sellMaterial(player,Material.SAND,64,200);
                 break;
-            case "red sandstone":
+            case "red sand stone":
                 sellMaterial(player,Material.RED_SANDSTONE,20,300);
                 break;
             case "sea lantern":

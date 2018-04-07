@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -24,15 +25,16 @@ public final class LobbyListener implements Listener {
     public World lobby;
     public World arena;
     public World second_world;
+    public World archery;
     public Plugin plugin;
+    
 
 
-    public LobbyListener(World lobby, World arena,World second_world) {
+    public LobbyListener(World lobby, World arena,World second_world,World archery) {
         this.lobby = lobby;
         this.arena = arena;
         this.second_world = second_world;
-        
-//        floatingText();
+        this.archery = archery;
     }
     
     @EventHandler
@@ -58,6 +60,13 @@ public final class LobbyListener implements Listener {
         player.setExhaustion​(0);
         
     }
+    
+    @EventHandler
+            public void onJoin(PlayerChangedWorldEvent event){
+                Player player = event.getPlayer();
+//		player.setGameMode(GameMode.SURVIVAL);
+		player.getInventory().clear();
+            }
 
      @EventHandler
 	public void OnMove(PlayerMoveEvent event) {
@@ -99,6 +108,11 @@ public final class LobbyListener implements Listener {
                             player.sendMessage(ChatColor.BLUE + "Teleported to Second World");
 			}
                         
+                        Location button3 = new Location(MainPlugin.lobby,-1523, 109.0, 650.0, location.getYaw(), location.getPitch());
+                        if (location.equals(button3)) {                   
+                            player.teleport(new Location(archery, 76.493,220.00000,29.311,179.8f,6.7f));
+                            player.sendMessage(ChatColor.BLUE + "Teleported to Archery");
+			}
 		}                  
 	}
         
@@ -118,7 +132,7 @@ public final class LobbyListener implements Listener {
                 }
         }
         
-        public void floatingText(){
+        private void floatingText(){
             
             Location loc1 = new Location(lobby,-1516.648,111.00000,683.393);
             ArmorStand  entity1 = lobby.spawn(loc1, ArmorStand.class);
@@ -133,6 +147,12 @@ public final class LobbyListener implements Listener {
             entity2.setCustomName(ChatColor.BLUE + "-- To Second World --");
             entity2.setCustomNameVisible(true);
             entity2.setVisible(false);
+            
+            Location loc3 = new Location(lobby,-1522.464,111.00000,678.006);
+            ArmorStand  entity3 = (ArmorStand) lobby.spawnEntity(loc3, EntityType.ARMOR_STAND);
+            entity3.setCustomName(ChatColor.BLUE + "-- To Archery --");
+            entity3.setCustomNameVisible(true);
+            entity3.setVisible(false);
         }
     
 }

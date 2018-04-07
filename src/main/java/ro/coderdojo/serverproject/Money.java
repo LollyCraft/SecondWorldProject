@@ -2,8 +2,6 @@ package ro.coderdojo.serverproject;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
-import java.util.Map.Entry;
 import org.bukkit.entity.Cow;
 
 import org.bukkit.entity.Monster;
@@ -12,7 +10,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.plugin.java.JavaPlugin;
 
 public class Money implements Listener {
     
@@ -54,12 +51,6 @@ public class Money implements Listener {
                 Player p = event.getEntity().getKiller();
                 giveSilver(p, 200);
 //                p.sendMessage("200 silver added to your money bank");
-            }
-        } else if (event.getEntity() instanceof Cow) {
-            if (event.getEntity() instanceof Player) {
-                Player p = event.getEntity().getKiller();
-                takeSilver(p, 200);
-                System.out.println("200 silver taken from your money bank");
             }
         }
     }

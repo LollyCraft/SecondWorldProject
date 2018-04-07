@@ -17,7 +17,7 @@ public class CommandMoney implements CommandExecutor {
                     String uuid = player.getUniqueId().toString();
              
                     player.sendMessage(ChatColor.BLUE + "-----------------");
-                    player.sendMessage(ChatColor.RED + "You have " + m.money.get(uuid));
+                    player.sendMessage(ChatColor.GOLD + "You have " + m.money.get(uuid));
                     player.sendMessage(ChatColor.BLUE + "-----------------");
                 }
 

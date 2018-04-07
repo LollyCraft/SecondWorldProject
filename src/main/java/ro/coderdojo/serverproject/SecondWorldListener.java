@@ -1,6 +1,8 @@
 package ro.coderdojo.serverproject;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -10,30 +12,38 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 
 public class SecondWorldListener implements Listener {
 
     public World second_world;
-    
-    Map<String, Location> plots = new HashMap<>();
+    ArrayList<Location> locations = new ArrayList<>();
+    Map<Player,List<Location>> plots = new HashMap<>();
 
     public SecondWorldListener(World second_world) {
         this.second_world = second_world;
+        floatingText();
     }
     
     @EventHandler
-	public void playerJoined(PlayerJoinEvent event) throws Exception {
+	public void onJoin(PlayerChangedWorldEvent event) throws Exception {
+            if (event.getPlayer().getWorld() != second_world) {
+                return;
+            }
 		Player player = event.getPlayer();
 //		player.setGameMode(GameMode.SURVIVAL);
 		player.getInventory().clear();
-                animalSigns();
+                player.sendMessage(ChatColor.RED + "Please remember that your inventory will be cleared once you exit this world!");
         }
 
     @EventHandler
     public void onPlayerRespawn(PlayerRespawnEvent event) {
+        
+        if (event.getPlayer().getWorld() != second_world) {
+                return;
+        }
 
         Player player = event.getPlayer();
 
@@ -52,7 +62,7 @@ public class SecondWorldListener implements Listener {
         Location loc2 = new Location(second_world, -8.073, 32.00000, 21.127);
 
         
-    public void animalSigns() {
+    private void floatingText() {
         
         ArmorStand  entity = (ArmorStand) second_world.spawnEntity(loc1, EntityType.ARMOR_STAND);
         entity.setCustomName(ChatColor.WHITE + "-"+ChatColor.GOLD + "To your plot" + ChatColor.WHITE + "-");
