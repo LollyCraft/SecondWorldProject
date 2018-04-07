@@ -40,7 +40,7 @@ public class Money implements Listener {
         Player p = event.getPlayer();
 
         if (money.get(p.getUniqueId().toString()) == null) {
-            money.put(p.getUniqueId().toString(), 0);
+            money.put(p.getUniqueId().toString(), 1200);
             System.out.println("Money bank created for this username.");
         } else {
             System.out.println("Money bank is already created for this username.");
@@ -49,7 +49,7 @@ public class Money implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (event.getEntity() instanceof Monster) {
+        if (event.getEntity() instanceof Monster) { //monster merge
             if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
                 giveSilver(p, 200);

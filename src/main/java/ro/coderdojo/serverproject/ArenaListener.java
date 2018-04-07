@@ -18,6 +18,12 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Cow;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -213,7 +219,7 @@ public final class ArenaListener implements Listener {
         List<CraftCreature> plP = pets.get(player.getName());
         if (plP != null) {
             for (CraftCreature creature : plP) {
-                creature.getHandle().getNavigation().a(loc.getX(), loc.getY(), loc.getZ(), 1.6);
+                creature.getHandle().getNavigation().a(loc.getX()+3, loc.getY(), loc.getZ()+3 , 1.6);
                 creature.setMaxHealth(100);
                 creature.setHealth(100);
                 if (loc.distanceSquared(creature.getLocation()) > 100 && player.isOnGround() ) {
@@ -221,8 +227,26 @@ public final class ArenaListener implements Listener {
                 }
             }
         }
+    }
+    
+    @EventHandler
+    public void onEntityHit(EntityDamageByEntityEvent event) {
         
-
+        if (event.getEntity().getWorld() != arena) {
+            return;
+        }
+        
+        if (event.getEntity() instanceof Player) { // cu Monster merge - NU uita ca e si la money schimbat
+            if (event.getDamager() instanceof Player) {
+                Player p = (Player) event.getDamager();
+                List<CraftCreature> plP = pets.get(p.getName());
+                if (plP != null) {
+                    for (CraftCreature creature : plP) {
+                        creature.setTarget((LivingEntity) event.getEntity());
+                    }
+                }
+            }
+        }
     }
 
     //*********************** WITCH KIT **********************************
