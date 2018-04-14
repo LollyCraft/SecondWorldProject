@@ -15,7 +15,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.craftbukkit.v1_12_R1.entity.CraftCreature;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
@@ -45,6 +44,8 @@ public final class ArenaListener implements Listener {
     public void onJoin(PlayerChangedWorldEvent event) {
 
         Player player = event.getPlayer();
+        
+        if(player.getWorld() != arena) return;
 
         player.getActivePotionEffects().forEach((effect) -> {
             player.removePotionEffect(effect.getType());
@@ -52,6 +53,7 @@ public final class ArenaListener implements Listener {
 
         player.setExhaustion(0);
         player.setFoodLevel(20);
+        player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,3600,1));
         player.getInventory().clear();
         player.setExhaustion​(0);
     }

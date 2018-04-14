@@ -2,7 +2,6 @@ package ro.coderdojo.serverproject;
 
 import java.util.HashMap;
 import java.util.Map;
-import org.bukkit.entity.Cow;
 
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -46,7 +45,7 @@ public class Money implements Listener {
 
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
-        if (event.getEntity() instanceof Monster) { //monster merge
+        if (event.getEntity() instanceof Player) { //monster merge
             if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
                 giveSilver(p, 200);

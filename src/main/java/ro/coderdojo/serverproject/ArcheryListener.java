@@ -1,7 +1,6 @@
 
 package ro.coderdojo.serverproject;
 
-import java.util.ArrayList;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -10,13 +9,11 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Cow;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Pig;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Sheep;
-import org.bukkit.entity.Vehicle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
@@ -45,7 +42,7 @@ public class ArcheryListener implements Listener {
                 
                 ItemStack bow = new ItemStack(Material.BOW, 1);
                 bow.addEnchantment(Enchantment.ARROW_DAMAGE, 4);
-                player.getInventory().addItem(new ItemStack(Material.BOW));
+                player.getInventory().addItem(bow);
                 for(int i = 1;i<=20;i++)
                     player.getInventory().addItem(new ItemStack(Material.ARROW));
                 
@@ -53,12 +50,12 @@ public class ArcheryListener implements Listener {
         
         private void floatingText(){
             Location loc1 = new Location(archery,73,220.00000,25);
-            ArmorStand  entity1 = archery.spawn(loc1.add(0,1,0), ArmorStand.class);
+            ArmorStand  entity1 = archery.spawn(loc1, ArmorStand.class);
             entity1.setCustomName(ChatColor.GOLD + "-- How to play --");
             entity1.setCustomNameVisible(true);
             entity1.setVisible(false);
 
-            ArmorStand  entity2 = archery.spawn(loc1, ArmorStand.class);
+            ArmorStand  entity2 = archery.spawn(loc1.subtract(0,0.5,0), ArmorStand.class);
             entity2.setCustomName(ChatColor.GREEN+ "1. Kill the animals from the cart to get money.");
             entity2.setCustomNameVisible(true);
             entity2.setVisible(false);
@@ -114,6 +111,7 @@ public class ArcheryListener implements Listener {
     public void cancelDestroy(VehicleDestroyEvent event){
         event.setCancelled(true);
     }
+    
     @EventHandler
     public void onEntityDeath(EntityDeathEvent event) {
         LivingEntity target = event.getEntity();
@@ -123,17 +121,17 @@ public class ArcheryListener implements Listener {
         if (target instanceof Pig) {  //merge doar pt pig!!!!!!!!!!!!!!!!!!!!
             if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
-                giveSilver(p,10,target);
+                giveSilver(p,100,target);
             }
         } else if (target instanceof Sheep) {
-            if (event.getEntity() instanceof Player) {
+            if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
-                giveSilver(p,5,target);
+                giveSilver(p,50,target);
             }
         }else if (target instanceof Cow) {
-            if (event.getEntity() instanceof Player) {
+            if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
-                giveSilver(p,7,target);
+                giveSilver(p,70,target);
             }
         }
     }

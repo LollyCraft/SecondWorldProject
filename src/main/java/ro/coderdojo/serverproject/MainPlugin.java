@@ -35,13 +35,12 @@ public class MainPlugin extends JavaPlugin {
                 loadSecondWorld();
                 loadArchery();
                 
-                getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena), this);
+                getServer().getPluginManager().registerEvents(new EventsListener(lobby,arena,second_world), this);
                 getServer().getPluginManager().registerEvents(new ArenaListener(arena), this);
                 getServer().getPluginManager().registerEvents(new LobbyListener(lobby,arena,second_world,archery), this);
                 getServer().getPluginManager().registerEvents(new SecondWorldListener(second_world), this);
                 getServer().getPluginManager().registerEvents(new ArcheryListener(archery), this);
                 getServer().getPluginManager().registerEvents(Money.getInstance(), this);
-//                getServer().getPluginManager().registerEvents(new LobbyListener(), this);
 
                                 //Register Command Executors
 		this.getCommand("CoderDojo").setExecutor(new CoderDojoCommand());
@@ -63,7 +62,7 @@ public class MainPlugin extends JavaPlugin {
     public void loadLobby(){
           lobby = Bukkit.getServer().createWorld(new WorldCreator("world_lobby"));
           lobby.setPVP(false);
-          lobby.setGameRuleValue("doDaynightCycle", "false");       
+          lobby.setGameRuleValue("doDaylightCycle", "false");       
           stdGameRules(lobby);
     }
     
@@ -71,6 +70,7 @@ public class MainPlugin extends JavaPlugin {
            arena = Bukkit.getServer().createWorld(new WorldCreator("Arena_map"));
            stdGameRules(arena);
            arena.setGameRuleValue("naturalRegeneration", "false");
+           lobby.setGameRuleValue("doDaylightCycle", "false");
     }
     
     public void loadSecondWorld(){
@@ -83,7 +83,7 @@ public class MainPlugin extends JavaPlugin {
     public void loadArchery(){
           archery = Bukkit.getServer().createWorld(new WorldCreator("Archery_map"));
           archery.setPVP(false);
-          archery.setGameRuleValue("doDaynightCycle", "false");       
+          archery.setGameRuleValue("doDaylightCycle", "false");       
           stdGameRules(archery);
     }
 
@@ -104,6 +104,7 @@ public class MainPlugin extends JavaPlugin {
         world.setGameRuleValue("doMobLoot", "false");
         world.setGameRuleValue("fallDamage", "false"); 
         world.setGameRuleValue("doWeatherCycle", "false");
+        world.setStorm(false);
         world.setGameRuleValue("keepInventory", "true");
     }
     

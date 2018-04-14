@@ -20,7 +20,7 @@ public class CommandHub implements CommandExecutor {
                     Player player = (Player) sender;
                     
                     player.getInventory().clear();
-                    player.teleport(new Location(MainPlugin.lobby,-1522, 111.0, 683.0));
+                    player.teleport(new Location(MainPlugin.lobby,-1522.666, 111.00000, 683.227, -91.6f, 2.1f));
                     player.sendMessage(ChatColor.BLUE + "Teleported to lobby");
                 }
 

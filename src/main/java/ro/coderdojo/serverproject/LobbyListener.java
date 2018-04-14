@@ -13,9 +13,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -38,35 +36,11 @@ public final class LobbyListener implements Listener {
     }
     
     @EventHandler
-	public void playerJoined(PlayerJoinEvent event) throws Exception {
+	public void playerJoined(PlayerChangedWorldEvent event) throws Exception {
 		Player player = event.getPlayer();
-//		player.setGameMode(GameMode.SURVIVAL);
+		player.setGameMode(GameMode.SURVIVAL); //
 		player.getInventory().clear();
-                floatingText();
         }
-    
-    @EventHandler
-    public void onPlayerRespawn(PlayerRespawnEvent event) {
-
-        Player player = event.getPlayer();
-
-        player.getActivePotionEffects().forEach((effect) -> {
-            player.removePotionEffect(effect.getType());
-        });
-
-        player.setExhaustion(0);
-        player.setFoodLevel(20);
-        player.getInventory().clear();
-        player.setExhaustion​(0);
-        
-    }
-    
-    @EventHandler
-            public void onJoin(PlayerChangedWorldEvent event){
-                Player player = event.getPlayer();
-//		player.setGameMode(GameMode.SURVIVAL);
-		player.getInventory().clear();
-            }
 
      @EventHandler
 	public void OnMove(PlayerMoveEvent event) {
@@ -130,29 +104,6 @@ public final class LobbyListener implements Listener {
                     player.teleport(new Location(lobby, -1522, 111.0, 683.0));
                     player.sendMessage("Teleported back to lobby");
                 }
-        }
-        
-        private void floatingText(){
-            
-            Location loc1 = new Location(lobby,-1516.648,111.00000,683.393);
-            ArmorStand  entity1 = lobby.spawn(loc1, ArmorStand.class);
-            entity1.setCustomName(ChatColor.RED + "-- To Battle arena --");
-            entity1.setCustomNameVisible(true);
-            entity1.setVisible(false);
-
-            //nu se  spawneaza armour stand-urile
-            
-            Location loc2 = new Location(lobby,-1522.464,111.00000,689.406);
-            ArmorStand  entity2 = (ArmorStand) lobby.spawnEntity(loc2, EntityType.ARMOR_STAND);
-            entity2.setCustomName(ChatColor.BLUE + "-- To Second World --");
-            entity2.setCustomNameVisible(true);
-            entity2.setVisible(false);
-            
-            Location loc3 = new Location(lobby,-1522.464,111.00000,678.006);
-            ArmorStand  entity3 = (ArmorStand) lobby.spawnEntity(loc3, EntityType.ARMOR_STAND);
-            entity3.setCustomName(ChatColor.BLUE + "-- To Archery --");
-            entity3.setCustomNameVisible(true);
-            entity3.setVisible(false);
         }
     
 }
