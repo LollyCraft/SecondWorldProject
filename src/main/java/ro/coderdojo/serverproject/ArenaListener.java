@@ -56,6 +56,8 @@ public final class ArenaListener implements Listener {
         player.addPotionEffect(new PotionEffect(PotionEffectType.SATURATION,3600,1));
         player.getInventory().clear();
         player.setExhaustion​(0);
+        player.setAllowFlight(false);
+        player.setCanPickupItems(false);
     }
     
     @EventHandler

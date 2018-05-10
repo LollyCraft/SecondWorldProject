@@ -34,9 +34,37 @@ public class Shop {
 
         if ((loc.getX() < 33) && (loc.getZ() < -25) && (loc.getZ() > -64) && (loc.getX() > -5)) {
 
-            if (action == Action.RIGHT_CLICK_BLOCK && (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN))) 
+            if (action == Action.RIGHT_CLICK_BLOCK && (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN))){ 
                 sellWhichMaterial(player,block); 
+            }else{
+                    return;
+                }
         }
+    }
+    
+    
+        //---------------------------------------------------------------------------------------
+    
+    public void takeSilver(Player player, int i) {
+
+        m.takeSilver(player, i);
+        player.sendMessage(ChatColor.GOLD + "You now have  " + m.money.get(player.getUniqueId().toString()));
+
+    }
+    
+    public void sellMaterial(Player player,Material item,int number,int price){
+        
+        if (m.money.get(player.getUniqueId().toString()) >= price) {
+            player.sendMessage(ChatColor.GOLD+ "You have bought " + item);
+            for(int i = 1;i<=number;i++){
+            player.getInventory().addItem(new ItemStack(item)); 
+            }
+            takeSilver(player, price);
+        }else{
+            player.sendMessage(ChatColor.RED + "Not enough money. It costs "+ChatColor.GOLD+ price);
+            player.sendMessage(ChatColor.RED + "You have just " +ChatColor.GOLD+ m.money.get(player.getUniqueId().toString()));
+        }
+
     }
     
     //-----------------------------------------------------------------------------
@@ -62,7 +90,7 @@ public class Shop {
                 sellMaterial(player,Material.LOG,64,200);
                 break;
             case "acacia wood":
-                sellMaterial(player,Material.LOG,64,200);
+                sellMaterial(player,Material.LOG_2,64,200);
                 break;
             case "dark oak wood":
                 sellMaterial(player,Material.LOG,64,200);
@@ -157,32 +185,146 @@ public class Shop {
               case "enchantment":
                 sellMaterial(player,Material.ENCHANTMENT_TABLE,1,200);
                 break;
-                  
+              case "redstone ore":
+                sellMaterial(player,Material.REDSTONE_ORE,10,150);
+                break;
+               case "diamond ore":
+                sellMaterial(player,Material.DIAMOND_ORE,2,250);
+                break;
+               case "gold ore":
+                sellMaterial(player,Material.GOLD_ORE,2,160);
+                break;
+               case "iron ore":
+                sellMaterial(player,Material.IRON_ORE,5,200);
+                break;
+               case "coal ore":
+                sellMaterial(player,Material.COAL_ORE,5,150);
+                break;
+               case "lapis lazuli ore":
+                sellMaterial(player,Material.LAPIS_ORE,5,200);
+                break;
+               case "white wool":
+                sellMaterial(player,Material.WOOL,10,200);
+                break;
+               case "item frame":
+                sellMaterial(player,Material.ITEM_FRAME,2,150);
+                break;
+               case "":
+                sellMaterial(player,Material.VINE,1,100);
+                break;
+               case "oak":
+                sellMaterial(player,Material.SAPLING,1,100);
+                break;
+               case "lever":
+                sellMaterial(player,Material.LEVER,1,100);
+                break;
+               case "sticky piston":
+                sellMaterial(player,Material.PISTON_STICKY_BASE,1,150);
+                break;
+               case "dispenser":
+                sellMaterial(player,Material.DISPENSER,1,200);
+                break;
+               case "note block":
+                sellMaterial(player,Material.NOTE_BLOCK,1,150);
+                break;
+               case "piston":
+                sellMaterial(player,Material.PISTON_BASE,1,200);
+                break;
+               case "dropper":
+                sellMaterial(player,Material.DROPPER,1,200);
+                break;
+               case "observer":
+                sellMaterial(player,Material.OBSERVER,1,350);
+                break;
+               case "minecart":
+                sellMaterial(player,Material.MINECART,1,155);
+                break;
+               case "slimeball":
+                sellMaterial(player,Material.SLIME_BALL,10,100);
+                break;
+               case "leather":
+                sellMaterial(player,Material.LEATHER,5,200);
+                break;
+               case "feather":
+                sellMaterial(player,Material.FEATHER,5,100);
+                break;
+               case "flower pot":
+                sellMaterial(player,Material.FLOWER_POT_ITEM,1,100);
+                break;
+               case "armor stand":
+                sellMaterial(player,Material.ARMOR_STAND,1,240);
+                break;
+               case "banner":
+                sellMaterial(player,Material.BANNER,1,350);
+                break;
+               case "sugar":
+                sellMaterial(player,Material.SUGAR,1,100);
+                break;
+               case "potato":
+                sellMaterial(player,Material.POTATO,1,50);
+                break;
+               case "carrot":
+                sellMaterial(player,Material.CARROT,1,10);
+                break;
+               case "raw beef":
+                sellMaterial(player,Material.RAW_BEEF,1,30);
+                break;
+               case "fish":
+                sellMaterial(player,Material.RAW_FISH,1,30);
+                break;
+               case "chicken":
+                sellMaterial(player,Material.RAW_CHICKEN,1,20);
+                break;
+               case "apple":
+                sellMaterial(player,Material.APPLE,1,10);
+                break;
+               case "porkchop":
+                sellMaterial(player,Material.PORK,1,20);
+                break;
+               case "beetroot":
+                sellMaterial(player,Material.BEETROOT,1,10);
+                break;
+               case "brewing stand":
+                sellMaterial(player,Material.BREWING_STAND,1,300);
+                break;
+               case "cauldron":
+                sellMaterial(player,Material.CAULDRON,1,100);
+                break;
+               case "rabbit foot":
+                sellMaterial(player,Material.RABBIT_FOOT,1,100);
+                break;
+               case "fermented spider eye":
+                sellMaterial(player,Material.FERMENTED_SPIDER_EYE,1,100);
+                break;
+               case "magma cream":
+                sellMaterial(player,Material.MAGMA_CREAM,1,100);
+                break;
+               case "blaze powder":
+                sellMaterial(player,Material.BLAZE_POWDER,5,150);
+                break;
+               case "golden carrot":
+                sellMaterial(player,Material.GOLDEN_CARROT,1,25);
+                break;
+               case "ghast tear":
+                sellMaterial(player,Material.GHAST_TEAR,1,200);
+                break;
+               case "rail":
+                sellMaterial(player,Material.RAILS,5,255);
+                break;
+               case "powered rail":
+                sellMaterial(player,Material.POWERED_RAIL,5,100);
+                break;
+               case "detector rail":
+                sellMaterial(player,Material.DETECTOR_RAIL,1,110);
+                break;
+               case "activator rail":
+                sellMaterial(player,Material.ACTIVATOR_RAIL,5,150);
+                break;
+               case "glass":
+                sellMaterial(player,Material.GLASS,5,200);
+                break;
+               
         }                
-    }
-
-    //---------------------------------------------------------------------------------------
-    
-    public void takeSilver(Player player, int i) {
-
-        m.takeSilver(player, i);
-        player.sendMessage(ChatColor.GOLD + "You now have  " + m.money.get(player.getUniqueId().toString()));
-
-    }
-    
-    public void sellMaterial(Player player,Material item,int number,int price){
-        
-        if (m.money.get(player.getUniqueId().toString()) >= price) {
-            player.sendMessage(ChatColor.GOLD+ "You have bought " + item);
-            for(int i = 1;i<=number;i++){
-            player.getInventory().addItem(new ItemStack(item)); 
-            }
-            takeSilver(player, price);
-        }else{
-            player.sendMessage(ChatColor.RED + "Not enough money");
-            player.sendMessage(ChatColor.RED + "You have just " + m.money.get(player.getUniqueId().toString()));
-        }
-
     }
 
 }

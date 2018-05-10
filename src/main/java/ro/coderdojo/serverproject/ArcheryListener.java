@@ -1,6 +1,8 @@
 
 package ro.coderdojo.serverproject;
 
+import java.util.ArrayList;
+import java.util.List;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -9,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Cow;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Minecart;
 import org.bukkit.entity.Pig;
@@ -43,27 +46,34 @@ public class ArcheryListener implements Listener {
                 ItemStack bow = new ItemStack(Material.BOW, 1);
                 bow.addEnchantment(Enchantment.ARROW_DAMAGE, 4);
                 player.getInventory().addItem(bow);
-                for(int i = 1;i<=20;i++)
-                    player.getInventory().addItem(new ItemStack(Material.ARROW));
+                player.setAllowFlight(false);
                 
         }
         
+        List<ArmorStand> floatingTexts = new ArrayList();
+        
         private void floatingText(){
-            Location loc1 = new Location(archery,73,220.00000,25);
-            ArmorStand  entity1 = archery.spawn(loc1, ArmorStand.class);
+            Location loc1 = new Location(archery,69,220.00000,22);
+            
+            ArmorStand entity1 = (ArmorStand) archery.spawnEntity(loc1, EntityType.ARMOR_STAND);
             entity1.setCustomName(ChatColor.GOLD + "-- How to play --");
-            entity1.setCustomNameVisible(true);
-            entity1.setVisible(false);
+            floatingTexts.add(entity1);
 
-            ArmorStand  entity2 = archery.spawn(loc1.subtract(0,0.5,0), ArmorStand.class);
+            ArmorStand  entity2 = (ArmorStand) archery.spawnEntity(loc1.subtract(0,0.5,0), EntityType.ARMOR_STAND);
             entity2.setCustomName(ChatColor.GREEN+ "1. Kill the animals from the cart to get money.");
-            entity2.setCustomNameVisible(true);
-            entity2.setVisible(false);
+            floatingTexts.add(entity2);
 
-            ArmorStand  entity3 = archery.spawn(loc1.subtract(0,1,0), ArmorStand.class);
-            entity3.setCustomName(ChatColor.GREEN+"2. Depending of the distance and the animal, you can get more money");
-            entity3.setCustomNameVisible(true);
-            entity3.setVisible(false);
+            ArmorStand  entity3 = (ArmorStand) archery.spawnEntity(loc1.subtract(0,0.8,0), EntityType.ARMOR_STAND);
+            entity3.setCustomName(ChatColor.GREEN+"2. Each animal gives a different amount of money");
+            floatingTexts.add(entity3);
+            
+            for(ArmorStand e : floatingTexts){
+                e.setVisible(false);
+                e.setCustomNameVisible(true);
+                e.setInvulnerable(true);
+                e.setSilent(true);
+                e.setGravity(false);
+            }
         }
         
         //------------------------------------------------------------------------------------------
@@ -78,8 +88,11 @@ public class ArcheryListener implements Listener {
         Block block = event.getClickedBlock();
         Action action = event.getAction();
 
-            if (action == Action.RIGHT_CLICK_BLOCK && (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN))) 
+            if (action == Action.RIGHT_CLICK_BLOCK && (block.getType().equals(Material.SIGN_POST) || block.getType().equals(Material.WALL_SIGN))){
                 sellArrows(player,20); 
+            }else{
+                    return;
+                }
     }
     
     Money m = Money.getInstance();

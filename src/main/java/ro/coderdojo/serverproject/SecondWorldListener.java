@@ -21,16 +21,20 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 public class SecondWorldListener implements Listener {
+    
+    //chests,low health hearts in arena
 
     public World second_world;
-    ArrayList<Location> locations = new ArrayList<>();
-    Map<Player, Location> plots = new HashMap<>();
-    List<Location> plotCorners = new ArrayList();
+    public static Map<Player, Location> plots = new HashMap<>();
+    public List<Location> plotCorners = new ArrayList();
     int nextFreePlot = 0;
 
     public SecondWorldListener(World second_world) {
         this.second_world = second_world;
         givePlots();
+    }
+
+    public SecondWorldListener() {
     }
 
     @EventHandler
@@ -43,14 +47,13 @@ public class SecondWorldListener implements Listener {
         player.getInventory().clear();
         player.sendMessage(ChatColor.RED + "Please remember that your inventory will be cleared once you exit this world!");
         player.setAllowFlight(true);
-        floatingText();
 
         if (plots.get(player) == null) {
             if (nextFreePlot > plotCorners.size() - 1) {
                 event.getPlayer().sendMessage(ChatColor.RED + "No more plots free");
             } else {
                 plots.put(player, plotCorners.get(nextFreePlot));
-                event.getPlayer().sendMessage(ChatColor.BLUE + "You now have a plot");
+                event.getPlayer().sendMessage(ChatColor.LIGHT_PURPLE + "You now have a plot");
                 nextFreePlot++;
             }
         }
@@ -68,27 +71,11 @@ public class SecondWorldListener implements Listener {
             locz = -241;
             locx = locx - 44;
         }
-        for (Location loc : plotCorners) {
-            loc.getBlock().setType(Material.REDSTONE_BLOCK);
-        }
+//        for (Location loc : plotCorners) {
+//            loc.getBlock().setType(Material.REDSTONE_BLOCK);
+//        }
     }
 
-//        @EventHandler
-//        public void onJoinServer(PlayerJoinEvent event){
-//            if (event.getPlayer().getWorld() != second_world) {
-//                return;
-//            }
-//            if(nextFreePlot > plotCorners.size()-1){
-//                event.getPlayer().sendMessage(ChatColor.RED+"No more plots free");
-//            }else{
-//                Player player = event.getPlayer();
-//                plots.put(player,plotCorners.get(nextFreePlot));
-//                event.getPlayer().sendMessage(ChatColor.BLUE+"You now have a plot");
-//                nextFreePlot++;
-//            }
-//        }
-    
-    //SA FAC COMANDA DE TP LA PLOTUL TAU!!!!!!!!!!
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockBreak(BlockBreakEvent event) {
         if (event.getPlayer().getWorld() != second_world) {
@@ -97,10 +84,10 @@ public class SecondWorldListener implements Listener {
 
         Location breakLocation = event.getBlock().getLocation();
         Location plotLocation = plots.get(event.getPlayer());
-        System.out.println("1 : " + breakLocation.getX() + " < " + plotLocation.getX());
-        System.out.println("2 : " + breakLocation.getX() + " > " + (plotLocation.getX() - 39));
-        System.out.println("1 : " + breakLocation.getZ() + " > " + plotLocation.getZ());
-        System.out.println("2 : " + breakLocation.getZ() + " < " + (plotLocation.getZ() - 39));
+//        System.out.println("1 : " + breakLocation.getX() + " < " + plotLocation.getX());
+//        System.out.println("2 : " + breakLocation.getX() + " > " + (plotLocation.getX() - 39));
+//        System.out.println("1 : " + breakLocation.getZ() + " > " + plotLocation.getZ());
+//        System.out.println("2 : " + breakLocation.getZ() + " < " + (plotLocation.getZ() - 39));
         if (breakLocation.getX() < plotLocation.getX() && breakLocation.getX() > plotLocation.getX() - 39) {
             if (breakLocation.getZ() > plotLocation.getZ() && breakLocation.getZ() < plotLocation.getZ() + 39) {
                 return;
@@ -108,7 +95,7 @@ public class SecondWorldListener implements Listener {
         }
         event.setCancelled(true);
     }
-    
+
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onBlockPlace(BlockPlaceEvent event) {
         if (event.getPlayer().getWorld() != second_world) {
@@ -126,23 +113,7 @@ public class SecondWorldListener implements Listener {
     }
 
     //------------------------------------------------------------------------------------------------------
-    Location loc1 = new Location(second_world, -8.029, 32.00000, 13.559);
-    Location loc2 = new Location(second_world, -8.073, 32.00000, 21.127);
-
-    private void floatingText() {
-
-        ArmorStand entity = (ArmorStand) second_world.spawnEntity(loc1, EntityType.ARMOR_STAND);
-        entity.setCustomName(ChatColor.WHITE + "-" + ChatColor.GOLD + "To your plot" + ChatColor.WHITE + "-");
-        entity.setCustomNameVisible(true);
-        entity.setVisible(false);
-
-        ArmorStand entity2 = (ArmorStand) second_world.spawnEntity(loc2, EntityType.ARMOR_STAND);
-        entity2.setCustomName(ChatColor.WHITE + "-" + ChatColor.RED + " To shop " + ChatColor.WHITE + "-");
-        entity2.setCustomNameVisible(true);
-        entity2.setVisible(false);
-
-    }
-
+    
     @EventHandler
     public void shop(PlayerInteractEvent event) {
         Shop shop = new Shop(second_world);
@@ -162,4 +133,9 @@ public class SecondWorldListener implements Listener {
         }
 
     }
+
+//    public void teleportToPlot(Player player){           
+//            Location plotLocation = plots.get(player);      
+//            player.teleport(plotLocation);
+//    }
 }

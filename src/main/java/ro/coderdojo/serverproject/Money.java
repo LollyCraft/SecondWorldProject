@@ -36,7 +36,7 @@ public class Money implements Listener {
         Player p = event.getPlayer();
 
         if (money.get(p.getUniqueId().toString()) == null) {
-            money.put(p.getUniqueId().toString(), 1200);
+            money.put(p.getUniqueId().toString(), 120000);
             System.out.println("Money bank created for this username.");
         } else {
             System.out.println("Money bank is already created for this username.");

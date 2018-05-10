@@ -8,13 +8,15 @@ commands:
    usage: /<command>
    permission: <plugin name>.basic
    permission-message: You don't have <permission>
-   
   hub:
    usage: /hub
    description: teleport player to lobby hub
    aliases: [hub,lobby]
-   
   moneyBank:
     usage: /money
     description: shows the player his current money
     aliases: [moneybank,money,bank,currency]
+  teleportToPlot:
+    usage: /myPlot
+    description: teleports player to his plot in second_world
+    aliases: [plot,tpPlot,myplot,tpplot]

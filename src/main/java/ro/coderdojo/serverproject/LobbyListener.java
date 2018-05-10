@@ -87,7 +87,9 @@ public final class LobbyListener implements Listener {
                             player.teleport(new Location(archery, 76.493,220.00000,29.311,179.8f,6.7f));
                             player.sendMessage(ChatColor.BLUE + "Teleported to Archery");
 			}
-		}                  
+		}else{
+                    return;
+                }                 
 	}
         
         @EventHandler
