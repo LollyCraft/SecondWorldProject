@@ -47,6 +47,8 @@ public class MainPlugin extends JavaPlugin {
                 this.getCommand("hub").setExecutor(new CommandHub());
                 this.getCommand("moneyBank").setExecutor(new CommandMoney());
                 this.getCommand("teleportToPlot").setExecutor(new CommandPlot());
+                this.getCommand("teleportToShop").setExecutor(new CommandShop());
+                this.getCommand("moneyHelp").setExecutor(new CommandHelpMoney());
                
                         
                 killAllMobs();

@@ -48,7 +48,7 @@ public class Money implements Listener {
         if (event.getEntity() instanceof Player) { //monster merge
             if (event.getEntity().getKiller() instanceof Player) {
                 Player p = event.getEntity().getKiller();
-                giveSilver(p, 200);
+                giveSilver(p, 400);
 //                p.sendMessage("200 silver added to your money bank");
             }
         }

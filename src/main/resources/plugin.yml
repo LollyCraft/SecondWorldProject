@@ -20,3 +20,9 @@ commands:
     usage: /myPlot
     description: teleports player to his plot in second_world
     aliases: [plot,tpPlot,myplot,tpplot]
+  teleportToShop:
+    usage: /shop
+    description: teleports player to shop in second_world
+  moneyHelp:
+    usage: /moneyHelp
+    description: gives more info about how the currency works
