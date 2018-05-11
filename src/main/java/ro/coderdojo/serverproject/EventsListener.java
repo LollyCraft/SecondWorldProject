@@ -38,7 +38,7 @@ public final class EventsListener implements Listener {
         }
 
         public void sendTitle(Player player, String title, String subtitle, int fadeinTime, int showTime, int fadeoutTime) {
-            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title  " + player.getName() + " times " + fadeinTime + " " + showTime + " " + fadeoutTime);
+//            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title  " + player.getName() + " times " + fadeinTime + " " + showTime + " " + fadeoutTime);
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + player.getName() + " title \"" + title + "\"");
             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "title " + player.getName() + " subtitle \"" + subtitle + "\"");
         }
@@ -57,9 +57,18 @@ public final class EventsListener implements Listener {
                 player.setFoodLevel(20);
                 floatingText();
                 
-                welcomeText(player);
                 
-                sendTitle(player, "\u00A7bThis is a Title!", "And this it a Subtitle!", 5, 50, 5);
+                
+                sendTitle(player, "\u00A7bWelcome", "to Second World", 5, 50, 5);
+                
+                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(MainPlugin.plugin, new Runnable()
+            {
+                public void run()
+                {
+                    welcomeText(player);
+                    //1s = 20 ticks
+                }
+            }, 60L);
 	}
         
         
@@ -84,17 +93,6 @@ public final class EventsListener implements Listener {
                 if (event.getPlayer().getWorld() == second_world) {
                     player.teleport(new Location(second_world,-9.052,32.00000,17.931));
                 }
-                
-                String playerName = player.getDisplayName();
-                for(int i = 1;i<=1000;i++){
-                    
-                }
-//                System.out.println(playerName);
-////                String command = String.format("/title <player> title {\"text\":\"WELCOME\",\"color\":\"gold\",\"bold\":true}").replace("<player>",playerName); 
-//                String command = String.format("/title <player> title {text:\"WELCOME\",color:\"gold\",bold:true}").replace("<player>",playerName); 
-//                System.out.println(command);
-//                player.chat(command);
-////                Bukkit.getServer().dispatchCommand(player, command);
                 
         }
         
@@ -208,7 +206,7 @@ public final class EventsListener implements Listener {
             player.sendMessage(ChatColor.AQUA +"    What commands can you use anywhere on server?");
             player.sendMessage(" ");
             player.sendMessage(ChatColor.WHITE + "- “/money” or “/bank” = money got from playing games");
-            player.sendMessage(ChatColor.WHITE + "( Find more information by typing “/helpMoney” )");
+            player.sendMessage(ChatColor.WHITE + "( Find more information by typing “/moneyHelp” )");
             player.sendMessage(ChatColor.WHITE + "- “/hub” or “/lobby”");
             player.sendMessage(" ");
             player.sendMessage(ChatColor.YELLOW+"-----------------------------------------------------");
