@@ -1,6 +1,10 @@
+
+//                                  NU MERG BLOCURILE SPECIALE - WOOD-DYE-SAPLING
+
 package ro.coderdojo.serverproject;
 
 import org.bukkit.ChatColor;
+import org.bukkit.DyeColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -74,26 +78,29 @@ public class Shop {
         String material = sign.getLine(0);
         switch (material){
             case "oak wood":
-                sellMaterial(player,Material.LOG,64,200);
+                sellMaterial(player,Material.LOG,32,200);
                 break;
             case "bookshelf":
-                sellMaterial(player,Material.BOOKSHELF,64,100);
+                sellMaterial(player,Material.BOOKSHELF,12,100);
                 break;
                 //nu esista alt fel de wood
             case "jungle wood":
-                sellMaterial(player,Material.LOG_2,64,100);
+                ItemStack wood3 = new ItemStack(Material.LOG, (short) 3);
+                sellMaterial(player,wood3.getType(),32,100);
                 break;
-            case "brich wood":
-                sellMaterial(player,Material.LOG,64,200);
+            case "birch wood":
+                ItemStack wood2 = new ItemStack(Material.LOG, (short) 2);
+                sellMaterial(player,wood2.getType(),32,200);
                 break;
             case "spruce wood":
-                sellMaterial(player,Material.LOG,64,200);
+                ItemStack wood1 = new ItemStack(Material.LOG, (short) 1);
+                sellMaterial(player,wood1.getType(),32,200);
                 break;
             case "acacia wood":
-                sellMaterial(player,Material.LOG_2,64,200);
+                sellMaterial(player,Material.LOG_2,32,200);
                 break;
             case "dark oak wood":
-                sellMaterial(player,Material.LOG,64,200);
+                sellMaterial(player,Material.LOG_2,32,200);
                 break;
             case "brick":
                 sellMaterial(player,Material.BRICK,20,300);
@@ -213,7 +220,27 @@ public class Shop {
                 sellMaterial(player,Material.VINE,1,100);
                 break;
                case "oak":
-                sellMaterial(player,Material.SAPLING,1,100);
+                sellMaterial(player,Material.SAPLING,1,20);
+                break;
+              case "spruce":
+                ItemStack sapling1 = new ItemStack(Material.SAPLING, (short) 1);
+                sellMaterial(player,sapling1.getType(),1,20);
+                break;
+              case "birch":
+                ItemStack sapling2 = new ItemStack(Material.SAPLING, (short) 2);
+                sellMaterial(player,sapling2.getType(),1,20);
+                break;
+              case "jungle":
+                ItemStack sapling3 = new ItemStack(Material.SAPLING, (short) 3);
+                sellMaterial(player,sapling3.getType(),1,20);
+                break;
+              case "acacia":
+                ItemStack sapling4 = new ItemStack(Material.SAPLING, (short) 4);
+                sellMaterial(player,sapling4.getType(),1,20);
+                break;
+              case "dark oak":
+                ItemStack sapling5 = new ItemStack(Material.SAPLING, (short) 5);
+                sellMaterial(player,sapling5.getType(),1,20);
                 break;
                case "lever":
                 sellMaterial(player,Material.LEVER,1,100);
@@ -321,7 +348,52 @@ public class Shop {
                 sellMaterial(player,Material.ACTIVATOR_RAIL,5,150);
                 break;
                case "glass":
-                sellMaterial(player,Material.GLASS,5,200);
+                sellMaterial(player,Material.GLASS,20,200);
+                break;
+               case "light blue dye":
+                ItemStack dye = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIGHT_BLUE.getDyeData());
+                sellMaterial(player,dye.getType(),1,12);
+                break;
+               case "magenta dye":
+                ItemStack dye2 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.MAGENTA.getDyeData());
+                sellMaterial(player,dye2.getType(),1,12);
+                break;
+               case "purple dye":
+                ItemStack dye3 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.PURPLE.getDyeData());
+                sellMaterial(player,dye3.getType(),1,12);
+                break;
+               case "cyan dye":
+                ItemStack dye4 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.CYAN.getDyeData());
+                sellMaterial(player,dye4.getType(),1,12);
+                break;
+               case "black dye":
+                ItemStack dye5 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.BLACK.getDyeData());
+                sellMaterial(player,dye5.getType(),1,12);
+                break;
+               case "gray dye":
+                ItemStack dye6 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.GRAY.getDyeData());
+                sellMaterial(player,dye6.getType(),1,12);
+                break;
+               case "pink dye":
+                ItemStack dye7 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.PINK.getDyeData());
+                sellMaterial(player,dye7.getType(),1,12);
+                break;
+               case "lime dye":
+                ItemStack dye8 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIME.getDyeData());
+                sellMaterial(player,dye8.getType(),1,12);
+                break;
+               case "orange dye":
+                ItemStack dye9 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.ORANGE.getDyeData());
+                sellMaterial(player,dye9.getType(),1,12);
+                break;
+               case "brown mushroom":
+                sellMaterial(player,Material.BROWN_MUSHROOM,1,12);
+                break;
+               case "red mushroom":
+                sellMaterial(player,Material.RED_MUSHROOM,1,12);
+                break;
+               case "lily pad":
+                sellMaterial(player,Material.WATER_LILY,1,12);
                 break;
                
         }                

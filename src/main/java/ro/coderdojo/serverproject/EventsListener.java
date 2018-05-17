@@ -179,7 +179,7 @@ public final class EventsListener implements Listener {
             entity11.setCustomName(ChatColor.WHITE + "-" + ChatColor.GREEN + " Glowstones teleport you " + ChatColor.WHITE + "-");
             floatingTexts.add(entity11);
             
-            ArmorStand entity12 = (ArmorStand) second_world.spawnEntity(loc9.subtract(0, 0.75, 0), EntityType.ARMOR_STAND);
+            ArmorStand entity12 = (ArmorStand) second_world.spawnEntity(loc9.subtract(0, 0.65, 0), EntityType.ARMOR_STAND);
             entity12.setCustomName(ChatColor.WHITE + "-" + ChatColor.GREEN + " or type /shop to teleport " + ChatColor.WHITE + "-");
             floatingTexts.add(entity12);
             

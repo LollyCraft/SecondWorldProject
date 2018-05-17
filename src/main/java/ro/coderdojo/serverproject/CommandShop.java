@@ -20,11 +20,9 @@ public class CommandShop implements CommandExecutor {
             Player player = (Player) sender;
             
             if(player.getWorld() == second_world){  
-            
-                
+   
             player.teleport(new Location(second_world, -3, 32.00000, -29, -90.5f, 1.5f));
-            player.sendMessage(ChatColor.BLUE + "Teleported to " + ChatColor.GOLD + "shop.");
-            
+            player.sendMessage(ChatColor.AQUA + "Teleported to " + ChatColor.GOLD + "shop.");
             }else{
                 player.sendMessage(ChatColor.BLUE + "-- " + ChatColor.RED + "You must be in Second World to make that command! "+ChatColor.BLUE + "--" );
             }

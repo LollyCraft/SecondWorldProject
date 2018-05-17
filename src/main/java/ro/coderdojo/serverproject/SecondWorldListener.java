@@ -8,8 +8,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -63,17 +61,23 @@ public class SecondWorldListener implements Listener {
 
         int locx = 209;
         int locz = -241;
-        for (int x = 1; x <= 5; x++) {
-            for (int z = 1; z <= 5; z++) {
-                plotCorners.add(new Location(second_world, locx, 32, locz));
-                locz = locz + 44;
+        for (int x = 1; x <= 11; x++) {
+            for (int z = 1; z <= 12; z++) {
+                    //fara ploturile ocupate de hub
+                    plotCorners.add(new Location(second_world, locx, 32, locz));
+                    if((z == 5 && x == 5)||(z == 5 && x == 6)||(z == 6 && x == 5)||(z ==6 && x == 6)||( z == 7 && x == 5)||( z == 7 && x == 6)){
+                        plotCorners.remove(new Location(second_world, locx, 32, locz));
+                    }
+                    locz = locz + 44;
+                    
             }
             locz = -241;
             locx = locx - 44;
         }
-//        for (Location loc : plotCorners) {
-//            loc.getBlock().setType(Material.REDSTONE_BLOCK);
-//        }
+        
+        for (Location loc : plotCorners) {
+            loc.getBlock().setType(Material.REDSTONE_BLOCK);
+        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
