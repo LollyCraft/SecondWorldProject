@@ -56,13 +56,21 @@ public class Shop {
 
     }
     
-    public void sellMaterial(Player player,Material item,int number,int price){
+    public void sellMaterial(Player player, Material item, int number, int price) {
+        sellMaterial(player, item, number, price, null);
+    }
+        
+    public void sellMaterial(Player player,Material item,int number,int price, Short data){
         
         if (m.money.get(player.getUniqueId().toString()) >= price) {
             player.sendMessage(ChatColor.GOLD+ "You have bought " + item);
-            for(int i = 1;i<=number;i++){
-            player.getInventory().addItem(new ItemStack(item)); 
+//            for(int i = 1;i<=number;i++){
+            if (data != null) {
+                player.getInventory().addItem(new ItemStack(item, number, data));
+            } else {
+                player.getInventory().addItem(new ItemStack(item, number));
             }
+//            }
             takeSilver(player, price);
         }else{
             player.sendMessage(ChatColor.RED + "Not enough money. It costs "+ChatColor.GOLD+ price);
@@ -71,20 +79,20 @@ public class Shop {
 
     }
     
-    public void sellSpecialMaterial(Player player,ItemStack item,int number,int price){
-        
-        if (m.money.get(player.getUniqueId().toString()) >= price) {
-            player.sendMessage(ChatColor.GOLD+ "You have bought " + item.getType());
-            for(int i = 1;i<=number;i++){
-            player.getInventory().addItem(item); 
-            }
-            takeSilver(player, price);
-        }else{
-            player.sendMessage(ChatColor.RED + "Not enough money. It costs "+ChatColor.GOLD+ price);
-            player.sendMessage(ChatColor.RED + "You have just " +ChatColor.GOLD+ m.money.get(player.getUniqueId().toString()));
-        }
-
-    }
+//    public void sellSpecialMaterial(Player player,ItemStack item,int number,int price){
+//        
+//        if (m.money.get(player.getUniqueId().toString()) >= price) {
+//            player.sendMessage(ChatColor.GOLD+ "You have bought " + item.getType());
+//            for(int i = 1;i<=number;i++){
+//            player.getInventory().addItem(item); 
+//            }
+//            takeSilver(player, price);
+//        }else{
+//            player.sendMessage(ChatColor.RED + "Not enough money. It costs "+ChatColor.GOLD+ price);
+//            player.sendMessage(ChatColor.RED + "You have just " +ChatColor.GOLD+ m.money.get(player.getUniqueId().toString()));
+//        }
+//
+//    }
     
     //-----------------------------------------------------------------------------
     
@@ -99,16 +107,13 @@ public class Shop {
                 sellMaterial(player,Material.BOOKSHELF,12,100);
                 break;
             case "jungle wood":
-                ItemStack wood3 = new ItemStack(Material.LOG, (short) 3);
-                sellSpecialMaterial(player,wood3,32,100);
+                sellMaterial(player,Material.LOG,32,100, (short) 3);
                 break;
             case "birch wood":
-                ItemStack wood2 = new ItemStack(Material.LOG, (short) 2);
-                sellSpecialMaterial(player,wood2,32,200);
+                sellMaterial(player,Material.LOG,32,200, (short) 2);
                 break;
             case "spruce wood":
-                ItemStack wood1 = new ItemStack(Material.LOG, (short) 1);
-                sellSpecialMaterial(player,wood1,32,200);
+                sellMaterial(player,Material.LOG,32,200, (short) 1);
                 break;
             case "acacia wood":
                 sellMaterial(player,Material.LOG_2,32,200);
@@ -237,24 +242,19 @@ public class Shop {
                 sellMaterial(player,Material.SAPLING,1,20);
                 break;
               case "spruce":
-                ItemStack sapling1 = new ItemStack(Material.SAPLING, (short) 1);
-                sellSpecialMaterial(player,sapling1,1,20);
+                sellMaterial(player,Material.SAPLING,1,20, (short) 1);
                 break;
               case "birch":
-                ItemStack sapling2 = new ItemStack(Material.SAPLING, (short) 2);
-                sellSpecialMaterial(player,sapling2,1,20);
+                sellMaterial(player,Material.SAPLING,1,20, (short) 2);
                 break;
               case "jungle":
-                ItemStack sapling3 = new ItemStack(Material.SAPLING, (short) 3);
-                sellSpecialMaterial(player,sapling3,1,20);
+                sellMaterial(player,Material.SAPLING,1,20, (short) 3);
                 break;
               case "acacia":
-                ItemStack sapling4 = new ItemStack(Material.SAPLING, (short) 4);
-                sellSpecialMaterial(player,sapling4,1,20);
+                sellMaterial(player,Material.SAPLING,1,20, (short) 4);
                 break;
               case "dark oak":
-                ItemStack sapling5 = new ItemStack(Material.SAPLING, (short) 5);
-                sellSpecialMaterial(player,sapling5,1,20);
+                sellMaterial(player,Material.SAPLING,1,20, (short) 5);
                 break;
                case "lever":
                 sellMaterial(player,Material.LEVER,1,100);
@@ -365,40 +365,31 @@ public class Shop {
                 sellMaterial(player,Material.GLASS,20,200);
                 break;
                case "light blue dye":
-                ItemStack dye = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIGHT_BLUE.getDyeData());
-                sellSpecialMaterial(player,dye,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.LIGHT_BLUE.getDyeData());
                 break;
                case "magenta dye":
-                ItemStack dye2 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.MAGENTA.getDyeData());
-                sellSpecialMaterial(player,dye2,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.MAGENTA.getDyeData());
                 break;
                case "purple dye":
-                ItemStack dye3 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.PURPLE.getDyeData());
-                sellSpecialMaterial(player,dye3,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.PURPLE.getDyeData());
                 break;
                case "cyan dye":
-                ItemStack dye4 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.CYAN.getDyeData());
-                sellSpecialMaterial(player,dye4,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.CYAN.getDyeData());
                 break;
                case "black dye":
-                ItemStack dye5 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.BLACK.getDyeData());
-                sellSpecialMaterial(player,dye5,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short)DyeColor.BLACK.getDyeData());
                 break;
                case "gray dye":
-                ItemStack dye6 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.GRAY.getDyeData());
-                sellSpecialMaterial(player,dye6,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12,(short) DyeColor.GRAY.getDyeData());
                 break;
                case "pink dye":
-                ItemStack dye7 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.PINK.getDyeData());
-                sellSpecialMaterial(player,dye7,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.PINK.getDyeData());
                 break;
                case "lime dye":
-                ItemStack dye8 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.LIME.getDyeData());
-                sellSpecialMaterial(player,dye8,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.LIME.getDyeData());
                 break;
                case "orange dye":
-                ItemStack dye9 = new ItemStack(Material.INK_SACK, 1, (short) DyeColor.ORANGE.getDyeData());
-                sellSpecialMaterial(player,dye9,1,12);
+                sellMaterial(player,Material.INK_SACK,1,12, (short) DyeColor.ORANGE.getDyeData());
                 break;
                case "brown mushroom":
                 sellMaterial(player,Material.BROWN_MUSHROOM,1,12);
