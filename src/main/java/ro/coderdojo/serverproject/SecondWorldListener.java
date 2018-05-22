@@ -45,6 +45,8 @@ public class SecondWorldListener implements Listener {
         player.getInventory().clear();
         player.sendMessage(ChatColor.RED + "Please remember that your inventory will be cleared once you exit this world!");
         player.setAllowFlight(true);
+        
+//        Location chance = plotCorners.get(new Random().nextInt(plotCorners.size()));
 
         if (plots.get(player) == null) {
             if (nextFreePlot > plotCorners.size() - 1) {
@@ -75,9 +77,9 @@ public class SecondWorldListener implements Listener {
             locx = locx - 44;
         }
         
-        for (Location loc : plotCorners) {
-            loc.getBlock().setType(Material.REDSTONE_BLOCK);
-        }
+//        for (Location loc : plotCorners) {
+//            loc.getBlock().setType(Material.REDSTONE_BLOCK);
+//        }
     }
 
     @EventHandler(priority = EventPriority.HIGHEST)
@@ -133,7 +135,31 @@ public class SecondWorldListener implements Listener {
         Player player = event.getPlayer();
 
         if (event.getPlayer().getLocation().subtract(0, 1, 0).getBlock().getType() == Material.GLOWSTONE) {
-            player.teleport(new Location(second_world, -3, 32.00000, -29, -90.5f, 1.5f));
+            double minX = -269;
+            double maxX = 254;
+            double maxZ = 282;
+            double minZ = -240;
+            
+            double pX = player.getLocation().getX();
+            double pZ = player.getLocation().getZ();
+            
+            boolean outSideOnX = (pX < minX) || (pX > maxX);
+            boolean outSideOnZ = (pZ < minZ) || (pZ > maxZ);
+            
+            double maxXHub = 0;
+            double maxZHub = 28;
+            double minXHub = -16;
+            double minZHub = 7;
+            boolean inSideOnX = (pX > minXHub) && (pX < maxXHub);
+            boolean inSideOnZ = (pZ > minZHub) && (pZ < maxZHub);
+
+            if(outSideOnX || outSideOnZ){               
+                player.teleport(new Location(second_world, -3, 32.00000, -29, -90.5f, 1.5f));
+            } 
+            
+            if(inSideOnX && inSideOnZ){               
+                player.teleport(new Location(second_world, -3, 32.00000, -29, -90.5f, 1.5f));
+            }
         }
 
     }

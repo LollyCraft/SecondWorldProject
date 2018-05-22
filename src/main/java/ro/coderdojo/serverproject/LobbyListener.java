@@ -40,6 +40,7 @@ public final class LobbyListener implements Listener {
 		Player player = event.getPlayer();
 		player.setGameMode(GameMode.SURVIVAL); //
 		player.getInventory().clear();
+                player.setAllowFlight(false);
         }
 
      @EventHandler
